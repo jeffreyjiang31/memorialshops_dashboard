@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memorial Shops – Metrics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('metrics-theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface-hover: #243044;
+      --border: #2d3a4d;
+      --text: #e6edf3;
+      --text-muted: #8b9cb3;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --success: #22c55e;
+      --success-soft: rgba(34, 197, 94, 0.12);
+      --error: #f87171;
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-hover: #e2e8f0;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --success: #16a34a;
+      --success-soft: rgba(22, 163, 74, 0.12);
+      --error: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+      background: var(--surface);
+      padding: 0.25rem;
+      border-radius: 10px;
+      width: fit-content;
+    }
+
+    .tabs button {
+      font: inherit;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .tabs button:hover {
+      color: var(--text);
+      background: var(--surface-hover);
+    }
+
+    .tabs button[aria-selected="true"] {
+      background: var(--accent);
+      color: white;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .loading, .error {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .error {
+      color: var(--error);
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .theme-toggle {
+      font: inherit;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--surface-hover);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .metric-card.clickable {
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .metric-card.clickable:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    .metric-card .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-card .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-card .value.currency {
+      color: var(--accent);
+    }
+
+    .chart-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      height: 320px;
+    }
+
+    .chart-wrap h3 {
+      margin: 0 0 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .customers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .customer-view-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .customer-view-btn {
+      font: inherit;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.45rem 0.8rem;
+      cursor: pointer;
+    }
+
+    .customer-view-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .customer-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .customer-sort-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.9rem;
+    }
+
+    .customer-sort-controls label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .customer-sort-controls select {
+      font: inherit;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.4rem 0.65rem;
+    }
+
+    .frequency-summary-grid {
+      margin-bottom: 1rem;
+    }
+
+    .distribution-section {
+      margin-bottom: 1rem;
+    }
+
+    .distribution-section h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .distribution-note {
+      margin-top: 0.55rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.9rem;
+    }
+
+    .timeline-nav {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .timeline-track {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-pill {
+      font: inherit;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .timeline-pill.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .timeline-pill.current-month {
+      border-color: var(--success);
+      box-shadow: inset 0 0 0 1px var(--success);
+    }
+
+    .current-month-badge {
+      margin-left: 0.45rem;
+      background: var(--success-soft);
+      color: var(--success);
+      border-radius: 999px;
+      padding: 0.12rem 0.45rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    .customer-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+    }
+
+    .customer-table th,
+    .customer-table td {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .customer-table th {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .customer-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .customer-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .customer-card .name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .customer-card .detail {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .customer-card .detail strong {
+      color: var(--text);
+    }
+
+    .month-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .month-card.current-month {
+      border-color: var(--success);
+      box-shadow: 0 0 0 1px var(--success-soft);
+    }
+
+    .month-card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .month-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .month-stats span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .month-stats span strong {
+      color: var(--text);
+      display: block;
+      font-size: 1rem;
+    }
+
+    .new-customers-list {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+
+    .new-customers-list li {
+      margin: 0.2rem 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2em 0.5em;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .badge.up {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .badge.flat {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="header-row">
+        <h1>Memorial Shops – Master Metrics</h1>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">Dark mode</button>
+      </div>
+    </header>
+
+    <div id="loading" class="loading">Loading metrics…</div>
+    <div id="error" class="error" style="display: none;"></div>
+
+    <div id="content" style="display: none;">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panel-master" id="tab-master">Master metrics</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-customers" id="tab-customers">Customer breakdown</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-user-distribution" id="tab-user-distribution">User distribution</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-monthly" id="tab-monthly">Monthly assessment</button>
+      </div>
+
+      <div id="panel-master" class="panel active" role="tabpanel">
+        <div class="metrics-grid" id="master-metrics"></div>
+        <div class="chart-wrap">
+          <h3>Revenue by month</h3>
+          <canvas id="chart-revenue" height="240"></canvas>
+        </div>
+      </div>
+
+      <div id="panel-customers" class="panel" role="tabpanel">
+        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-muted);">Customer breakdown</h2>
+        <div class="customer-view-switch">
+          <button type="button" class="customer-view-btn active" data-view="unique_customers">All unique customers</button>
+          <button type="button" class="customer-view-btn" data-view="users_2_plus">Users (2+ orders)</button>
+          <button type="button" class="customer-view-btn" data-view="one_order">One-order customers</button>
+        </div>
+        <div class="customer-sort-controls">
+          <label for="customer-sort-field">Sort by</label>
+          <select id="customer-sort-field">
+            <option value="orders">Orders</option>
+            <option value="total_order_value" selected>Total value</option>
+            <option value="average_order_value">Average value</option>
+            <option value="last_order_date">Last ordered date</option>
+          </select>
+          <select id="customer-sort-direction">
+            <option value="desc" selected>Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+        <div class="metrics-grid frequency-summary-grid" id="frequency-summary"></div>
+        <div id="customers-subtitle" class="customer-subtitle"></div>
+        <div id="customers-table-wrap"></div>
+      </div>
+
+      <div id="panel-user-distribution" class="panel" role="tabpanel">
+        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-muted);">User distribution</h2>
+        <div class="distribution-section">
+          <h3>Order-frequency segment mix</h3>
+          <div id="power-distribution-table"></div>
+          <div class="distribution-note" id="power-distribution-note"></div>
+        </div>
+        <div class="chart-wrap" style="margin-bottom: 1rem;">
+          <h3>Revenue by order-frequency segment</h3>
+          <canvas id="chart-power-distribution" height="220"></canvas>
+        </div>
+      </div>
+
+      <div id="panel-monthly" class="panel" role="tabpanel">
+        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-muted);">Monthly timeline</h2>
+        <div class="timeline-toolbar">
+          <div class="customer-view-switch" id="timeline-group-buttons" style="margin-bottom: 0;">
+            <button type="button" class="customer-view-btn active" data-group-size="1">1 month</button>
+            <button type="button" class="customer-view-btn" data-group-size="3">3 months</button>
+            <button type="button" class="customer-view-btn" data-group-size="6">6 months</button>
+            <button type="button" class="customer-view-btn" data-group-size="12">12 months</button>
+            <button type="button" class="customer-view-btn" data-group-size="all">All</button>
+          </div>
+          <div class="timeline-nav">
+            <button type="button" class="theme-toggle" id="timeline-prev">Previous</button>
+            <button type="button" class="theme-toggle" id="timeline-next">Next</button>
+          </div>
+        </div>
+        <div class="customer-subtitle" id="timeline-period-label"></div>
+        <div class="timeline-track" id="timeline-track"></div>
+        <div class="metrics-grid" id="timeline-summary"></div>
+        <div id="timeline-month-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let chartRevenue = null;
+    let chartPowerDistribution = null;
+    let customerLists = { unique_customers: [], users_2_plus: [], one_order: [] };
+    let activeCustomerView = 'unique_customers';
+    let customerSort = { field: 'total_order_value', direction: 'desc' };
+    let monthlyTimelineData = [];
+    let monthlyGroupSize = 1;
+    let monthlyGroupIndex = 0;
+
+    function showLoading() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('error').style.display = 'none';
+      document.getElementById('content').style.display = 'none';
+    }
+
+    function showError(msg) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'none';
+      const el = document.getElementById('error');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function showContent(data) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      renderMaster(data.master, data.chart, data.order_frequency);
+      renderCustomers(data);
+      renderMonthly(data.monthly);
+      renderOrderFrequency(data.order_frequency);
+      renderPowerUserDistribution(data.power_user_distribution);
+      setupTabs();
+    }
+
+    function formatCurrency(n) {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(n);
+    }
+
+    function formatDays(value) {
+      if (value == null || Number.isNaN(Number(value))) return 'N/A';
+      return Number(value).toFixed(2) + ' days';
+    }
+
+    function renderMaster(master, chartData, orderFrequency) {
+      const grid = document.getElementById('master-metrics');
+      const avgLifetime = master.avg_customer_lifetime_revenue != null
+        ? master.avg_customer_lifetime_revenue
+        : (master.unique_customers > 0 ? master.total_sales / master.unique_customers : 0);
+      const repeatCadence = orderFrequency ? orderFrequency.avg_days_power_users : null;
+      const items = [
+        { label: 'Total lifetime sales', value: formatCurrency(master.total_sales), currency: true },
+        { label: 'Unique customers', value: master.unique_customers.toLocaleString(), clickView: 'unique_customers' },
+        { label: 'Users (2+ orders)', value: master.users_count.toLocaleString(), clickView: 'users_2_plus' },
+        { label: 'Time between orders (repeat 2+)', value: formatDays(repeatCadence) },
+        { label: 'Customer lifetime value (avg)', value: formatCurrency(avgLifetime), currency: true },
+        { label: 'Total orders', value: master.total_orders.toLocaleString() },
+        { label: 'Overall AOV', value: formatCurrency(master.overall_aov), currency: true },
+        { label: 'Engraving Order Rate', value: master.engraving_rate + '%' },
+      ];
+      grid.innerHTML = items.map(({ label, value, currency, clickView }) =>
+        `<div class="metric-card ${clickView ? 'clickable' : ''}" ${clickView ? `data-customer-view="${clickView}"` : ''}>
+          <div class="label">${label}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>
+        </div>`
+      ).join('');
+
+      grid.querySelectorAll('.metric-card.clickable').forEach(card => {
+        card.addEventListener('click', () => {
+          const view = card.getAttribute('data-customer-view');
+          openCustomerView(view);
+        });
+      });
+
+      const ctx = document.getElementById('chart-revenue').getContext('2d');
+      if (chartRevenue) chartRevenue.destroy();
+      chartRevenue = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: chartData.months,
+          datasets: [{
+            label: 'Revenue',
+            data: chartData.revenues,
+            backgroundColor: 'rgba(59, 130, 246, 0.6)',
+            borderColor: 'rgb(59, 130, 246)',
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#8b9cb3', maxRotation: 45 } },
+            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#8b9cb3', callback: v => '$' + (v / 1000) + 'k' } },
+          },
+        },
+      });
+    }
+
+    function renderCustomers(data) {
+      customerLists = {
+        unique_customers: (data.customer_lists && data.customer_lists.unique_customers) || [],
+        users_2_plus: (data.customer_lists && data.customer_lists.users_2_plus) || [],
+        one_order: (data.customer_lists && data.customer_lists.one_order) || []
+      };
+
+      document.querySelectorAll('.customer-view-btn').forEach(btn => {
+        btn.addEventListener('click', () => setCustomerView(btn.getAttribute('data-view')));
+      });
+
+      const sortField = document.getElementById('customer-sort-field');
+      const sortDirection = document.getElementById('customer-sort-direction');
+      sortField.value = customerSort.field;
+      sortDirection.value = customerSort.direction;
+      sortField.onchange = () => {
+        customerSort.field = sortField.value;
+        setCustomerView(activeCustomerView);
+      };
+      sortDirection.onchange = () => {
+        customerSort.direction = sortDirection.value;
+        setCustomerView(activeCustomerView);
+      };
+
+      setCustomerView(activeCustomerView);
+    }
+
+    function getSortedCustomerRows(rows) {
+      const sortedRows = [...rows];
+      const field = customerSort.field;
+      const multiplier = customerSort.direction === 'asc' ? 1 : -1;
+
+      sortedRows.sort((a, b) => {
+        let av;
+        let bv;
+        if (field === 'last_order_date') {
+          av = a.last_order_date ? new Date(a.last_order_date).getTime() : 0;
+          bv = b.last_order_date ? new Date(b.last_order_date).getTime() : 0;
+        } else {
+          av = Number(a[field] || 0);
+          bv = Number(b[field] || 0);
+        }
+        if (av < bv) return -1 * multiplier;
+        if (av > bv) return 1 * multiplier;
+        return String(a.name || '').localeCompare(String(b.name || ''));
+      });
+
+      return sortedRows;
+    }
+
+    function setCustomerView(view) {
+      if (!customerLists[view]) view = 'unique_customers';
+      activeCustomerView = view;
+
+      const subtitle = document.getElementById('customers-subtitle');
+      const tableWrap = document.getElementById('customers-table-wrap');
+      const rows = customerLists[view] || [];
+      const sortedRows = getSortedCustomerRows(rows);
+      const labelMap = {
+        unique_customers: 'All unique customers',
+        users_2_plus: 'Customers with 2+ orders',
+        one_order: 'Customers with exactly 1 order'
+      };
+
+      subtitle.textContent = `${labelMap[view]} · ${rows.length.toLocaleString()} customers`;
+      document.querySelectorAll('.customer-view-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-view') === view);
+      });
+
+      if (!rows.length) {
+        tableWrap.innerHTML = '<div class="customer-card"><div class="detail">No customer records found for this view.</div></div>';
+        return;
+      }
+
+      tableWrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="customer-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Orders</th>
+                <th>Total order value</th>
+                <th>Average order value</th>
+                <th>Avg days between orders</th>
+                <th>Last order</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${sortedRows.map(c => `
+                <tr>
+                  <td>${escapeHtml(c.name)}</td>
+                  <td>${(c.orders || 0).toLocaleString()}</td>
+                  <td>${formatCurrency(c.total_order_value || 0)}</td>
+                  <td>${formatCurrency(c.average_order_value || 0)}</td>
+                  <td>${formatDays(c.avg_days_between_orders)}</td>
+                  <td>${c.last_order_date ? escapeHtml(c.last_order_date) : 'N/A'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function openCustomerView(view) {
+      setCustomerView(view);
+      const customerTab = document.getElementById('tab-customers');
+      if (customerTab) customerTab.click();
+    }
+
+    function getMonthlyGroups(monthly, groupSize) {
+      if (!monthly || !monthly.length) return [];
+      if (groupSize === 'all') return [{ months: monthly }];
+      const size = Math.max(1, Number(groupSize) || 1);
+      const groups = [];
+      for (let i = 0; i < monthly.length; i += size) {
+        groups.push({ months: monthly.slice(i, i + size) });
+      }
+      return groups;
+    }
+
+    function getGroupLabel(group) {
+      if (!group || !group.months || !group.months.length) return 'No data';
+      const first = group.months[0].month;
+      const last = group.months[group.months.length - 1].month;
+      return first === last ? first : `${first} -> ${last}`;
+    }
+
+    function bindMonthlyTimelineControls() {
+      const prev = document.getElementById('timeline-prev');
+      const next = document.getElementById('timeline-next');
+      prev.onclick = () => {
+        monthlyGroupIndex = Math.max(0, monthlyGroupIndex - 1);
+        renderMonthlyTimelineView();
+      };
+      next.onclick = () => {
+        const groups = getMonthlyGroups(monthlyTimelineData, monthlyGroupSize);
+        monthlyGroupIndex = Math.min(Math.max(0, groups.length - 1), monthlyGroupIndex + 1);
+        renderMonthlyTimelineView();
+      };
+
+      document.querySelectorAll('#timeline-group-buttons .customer-view-btn').forEach(btn => {
+        btn.onclick = () => {
+          monthlyGroupSize = btn.getAttribute('data-group-size');
+          const groups = getMonthlyGroups(monthlyTimelineData, monthlyGroupSize);
+          monthlyGroupIndex = Math.max(0, groups.length - 1);
+          renderMonthlyTimelineView();
+        };
+      });
+    }
+
+    function renderMonthlyTimelineView() {
+      const periodLabel = document.getElementById('timeline-period-label');
+      const timelineTrack = document.getElementById('timeline-track');
+      const timelineSummary = document.getElementById('timeline-summary');
+      const monthList = document.getElementById('timeline-month-list');
+      const groups = getMonthlyGroups(monthlyTimelineData, monthlyGroupSize);
+      const now = new Date();
+      const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+      document.querySelectorAll('#timeline-group-buttons .customer-view-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-group-size') === String(monthlyGroupSize));
+      });
+
+      if (!groups.length) {
+        periodLabel.textContent = 'No monthly data available';
+        timelineTrack.innerHTML = '';
+        timelineSummary.innerHTML = '';
+        monthList.innerHTML = '<div class="month-card"><div class="detail">No monthly records found.</div></div>';
+        return;
+      }
+
+      monthlyGroupIndex = Math.min(Math.max(0, monthlyGroupIndex), groups.length - 1);
+      const activeGroup = groups[monthlyGroupIndex];
+
+      timelineTrack.innerHTML = groups.map((group, idx) => {
+        const hasCurrentMonth = group.months.some(m => m.month === currentMonthKey);
+        const classes = `timeline-pill ${idx === monthlyGroupIndex ? 'active' : ''} ${hasCurrentMonth ? 'current-month' : ''}`.trim();
+        return `<button type="button" class="${classes}" data-group-idx="${idx}">${getGroupLabel(group)}${hasCurrentMonth ? ' · Current month' : ''}</button>`;
+      }).join('');
+      timelineTrack.querySelectorAll('.timeline-pill').forEach(btn => {
+        btn.onclick = () => {
+          monthlyGroupIndex = Number(btn.getAttribute('data-group-idx'));
+          renderMonthlyTimelineView();
+        };
+      });
+
+      const activeHasCurrent = activeGroup.months.some(m => m.month === currentMonthKey);
+      periodLabel.textContent = `Showing period: ${getGroupLabel(activeGroup)} (${activeGroup.months.length} month${activeGroup.months.length > 1 ? 's' : ''})${activeHasCurrent ? ' · Includes current month' : ''}`;
+
+      const totalRevenue = activeGroup.months.reduce((sum, m) => sum + (m.revenue || 0), 0);
+      const totalOrders = activeGroup.months.reduce((sum, m) => sum + (m.orders || 0), 0);
+      const totalNewCustomers = activeGroup.months.reduce((sum, m) => sum + (m.new_customers_count || 0), 0);
+      const avgAov = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+      const weightedEngravingRate = totalOrders > 0
+        ? activeGroup.months.reduce((sum, m) => sum + ((m.engraving_rate || 0) * (m.orders || 0)), 0) / totalOrders
+        : 0;
+
+      const summaryItems = [
+        { label: 'Period revenue', value: formatCurrency(totalRevenue), currency: true },
+        { label: 'Period orders', value: totalOrders.toLocaleString() },
+        { label: 'Period AOV', value: formatCurrency(avgAov), currency: true },
+        { label: 'New customers', value: totalNewCustomers.toLocaleString() },
+        { label: 'Engraving rate (weighted)', value: `${weightedEngravingRate.toFixed(2)}%` },
+      ];
+      timelineSummary.innerHTML = summaryItems.map(({ label, value, currency }) =>
+        `<div class="metric-card">
+          <div class="label">${label}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>
+        </div>`
+      ).join('');
+
+      monthList.innerHTML = activeGroup.months.map(m => {
+        const growthBadge = m.aov_growth_pct != null
+          ? `<span class="badge ${m.aov_growth_pct >= 0 ? 'up' : 'flat'}">AOV MoM ${m.aov_growth_display}</span>`
+          : `<span class="badge flat">${m.aov_growth_display}</span>`;
+        const newList = m.new_customers.length
+          ? `<ul class="new-customers-list">${m.new_customers.map(n => `<li>${escapeHtml(n)}</li>`).join('')}</ul>`
+          : '';
+        const isCurrentMonth = m.month === currentMonthKey;
+        return `<div class="month-card ${isCurrentMonth ? 'current-month' : ''}">
+          <h3>${m.month}${isCurrentMonth ? '<span class="current-month-badge">Current month</span>' : ''} ${growthBadge}</h3>
+          <div class="month-stats">
+            <span>Revenue <strong>${formatCurrency(m.revenue)}</strong></span>
+            <span>Orders <strong>${m.orders}</strong></span>
+            <span>Unique customers <strong>${m.unique_customers}</strong></span>
+            <span>New customers <strong>${m.new_customers_count}</strong></span>
+            <span>AOV <strong>${formatCurrency(m.aov)}</strong></span>
+            <span>Engraving rate <strong>${m.engraving_rate}%</strong></span>
+          </div>
+          ${newList}
+        </div>`;
+      }).join('');
+    }
+
+    function renderMonthly(monthly) {
+      monthlyTimelineData = monthly || [];
+      bindMonthlyTimelineControls();
+      const groups = getMonthlyGroups(monthlyTimelineData, monthlyGroupSize);
+      monthlyGroupIndex = Math.max(0, groups.length - 1);
+      renderMonthlyTimelineView();
+    }
+
+    function renderOrderFrequency(freq) {
+      const data = freq || {};
+      const summary = document.getElementById('frequency-summary');
+      const items = [
+        { label: 'One-time customers', value: (data.one_time_customers || 0).toLocaleString() },
+        { label: 'Power users (2+ orders)', value: (data.power_users_count || 0).toLocaleString() },
+        { label: 'Avg days (power users)', value: formatDays(data.avg_days_power_users) },
+      ];
+      summary.innerHTML = items.map(({ label, value }) =>
+        `<div class="metric-card">
+          <div class="label">${label}</div>
+          <div class="value">${value}</div>
+        </div>`
+      ).join('');
+    }
+
+    function renderPowerUserDistribution(payload) {
+      const data = payload || {};
+      const segments = data.segments || [];
+      const tableWrap = document.getElementById('power-distribution-table');
+      const noteEl = document.getElementById('power-distribution-note');
+
+      tableWrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="customer-table">
+            <thead>
+              <tr>
+                <th>Segment</th>
+                <th>Customers</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${segments.map(s => `
+                <tr>
+                  <td>${escapeHtml(s.segment)}</td>
+                  <td>${(s.customers || 0).toLocaleString()}</td>
+                  <td>${formatCurrency(s.revenue || 0)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      const shareTxt = data.repeat_revenue_share_pct != null ? `${Number(data.repeat_revenue_share_pct).toFixed(2)}%` : 'N/A';
+      noteEl.textContent = `Repeat-user revenue share (2+ orders): ${shareTxt}`;
+
+      const ctx = document.getElementById('chart-power-distribution').getContext('2d');
+      if (chartPowerDistribution) chartPowerDistribution.destroy();
+      chartPowerDistribution = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: segments.map(s => s.segment),
+          datasets: [{
+            label: 'Revenue',
+            data: segments.map(s => s.revenue || 0),
+            backgroundColor: 'rgba(59, 130, 246, 0.65)',
+            borderColor: 'rgb(59, 130, 246)',
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#8b9cb3' } },
+            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#8b9cb3', callback: v => '$' + (v / 1000) + 'k' } },
+          },
+        },
+      });
+    }
+
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    function setupTabs() {
+      const tabs = document.querySelectorAll('.tabs button');
+      const panels = document.querySelectorAll('.panel');
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => { t.setAttribute('aria-selected', 'false'); });
+          panels.forEach(p => p.classList.remove('active'));
+          tab.setAttribute('aria-selected', 'true');
+          document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+        });
+      });
+    }
+
+    function applyTheme(theme) {
+      theme = theme || document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('metrics-theme', theme);
+      var btn = document.getElementById('theme-toggle');
+      if (btn) btn.textContent = theme === 'light' ? 'Light mode' : 'Dark mode';
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+    applyTheme();
+
+    showLoading();
+    fetch('/api/metrics')
+      .then(r => r.ok ? r.json() : Promise.reject(new Error(r.statusText)))
+      .then(data => {
+        if (data.error) throw new Error(data.error);
+        showContent(data);
+      })
+      .catch(err => showError('Failed to load metrics: ' + err.message));
+  </script>
+</body>
+</html>
