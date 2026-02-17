@@ -133,9 +133,11 @@ Send him that URL. He can open it in any browser; no install needed.
 
 ---
 
-## Updating the app later
+## Updating the app later (e.g. mobile-friendly changes)
 
-After you change code:
+To deploy any code changes (including the new mobile-friendly layout):
+
+1. **Commit and push** from your project folder:
 
 ```powershell
 cd "C:\Users\jeffr\OneDrive\Documents\RememberUrns\Scripts\Metrics"
@@ -144,4 +146,12 @@ git commit -m "Describe your change"
 git push
 ```
 
-Render will automatically redeploy when you push to `main`.
+Use the branch Render is using (e.g. `master` or `main` — check your Render service **Settings** if unsure). For example, if you use `master`:
+
+```powershell
+git push origin master
+```
+
+2. **Render redeploys automatically** when it sees the new push. In the Render dashboard, open your service and watch the **Events** or **Logs** tab; when the deploy finishes, the live site will show your updates.
+
+3. **Check on your phone** by opening the same Render URL in your mobile browser to confirm the mobile-friendly layout.

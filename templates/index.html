@@ -16,85 +16,192 @@
   </script>
   <style>
     :root {
-      --bg: #0f1419;
-      --surface: #1a2332;
-      --surface-hover: #243044;
-      --border: #2d3a4d;
-      --text: #e6edf3;
-      --text-muted: #8b9cb3;
-      --accent: #3b82f6;
-      --accent-soft: rgba(59, 130, 246, 0.15);
-      --success: #22c55e;
-      --success-soft: rgba(34, 197, 94, 0.12);
-      --error: #f87171;
+      --bg: #000000;
+      --surface: rgba(28, 28, 30, 0.8);
+      --surface-alt: rgba(44, 44, 46, 0.6);
+      --surface-hover: rgba(58, 58, 60, 0.5);
+      --border: rgba(255, 255, 255, 0.05);
+      --border-strong: rgba(255, 255, 255, 0.08);
+      --text: #f5f5f7;
+      --text-muted: #98989d;
+      --text-subtle: #636366;
+      --accent: #0a84ff;
+      --accent-soft: rgba(10, 132, 255, 0.12);
+      --accent-hover: rgba(10, 132, 255, 0.2);
+      --success: #30d158;
+      --success-soft: rgba(48, 209, 88, 0.12);
+      --error: #ff453a;
+      --error-soft: rgba(255, 69, 58, 0.12);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+      --transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     [data-theme="light"] {
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --surface-hover: #e2e8f0;
-      --border: #cbd5e1;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.12);
-      --success: #16a34a;
-      --success-soft: rgba(22, 163, 74, 0.12);
-      --error: #dc2626;
+      --bg: #f2f2f7;
+      --surface: rgba(255, 255, 255, 0.72);
+      --surface-alt: rgba(255, 255, 255, 0.5);
+      --surface-hover: rgba(0, 0, 0, 0.03);
+      --border: rgba(0, 0, 0, 0.04);
+      --border-strong: rgba(0, 0, 0, 0.08);
+      --text: #1d1d1f;
+      --text-muted: #6e6e73;
+      --text-subtle: #aeaeb2;
+      --accent: #007aff;
+      --accent-soft: rgba(0, 122, 255, 0.1);
+      --accent-hover: rgba(0, 122, 255, 0.16);
+      --success: #34c759;
+      --success-soft: rgba(52, 199, 89, 0.12);
+      --error: #ff3b30;
+      --error-soft: rgba(255, 59, 48, 0.1);
+      --shadow-sm: 0 0.5px 1px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 20px rgba(0,0,0,0.06), 0 20px 48px rgba(0,0,0,0.1);
     }
 
-    * {
+    [data-theme="light"] .metric-card,
+    [data-theme="light"] .chart-wrap,
+    [data-theme="light"] .sales-toolbar,
+    [data-theme="light"] .table-wrap,
+    [data-theme="light"] .month-card,
+    [data-theme="light"] .customer-card,
+    [data-theme="light"] .segment-customer-table-wrap {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0.5px 1px rgba(0,0,0,0.02), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    [data-theme="light"] .tabs {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+
+    [data-theme="light"] .tabs button[aria-selected="true"] {
+      box-shadow: 0 1px 4px rgba(0,122,255,0.25);
+    }
+
+    [data-theme="light"] .metric-card:hover,
+    [data-theme="light"] .metric-card.chart-clickable:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.08);
+      border-color: rgba(0, 122, 255, 0.2);
+    }
+
+    [data-theme="light"] .customer-table th {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="light"] .customer-table tbody tr:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="light"] .sales-order-detail {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="light"] .overview-chart-modal-backdrop,
+    [data-theme="light"] .bill-link-modal-backdrop {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    [data-theme="light"] .overview-chart-modal-content,
+    [data-theme="light"] .bill-link-modal-content {
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    *, *::before, *::after {
       box-sizing: border-box;
+    }
+
+    ::selection {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-strong);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-subtle);
     }
 
     body {
       margin: 0;
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.5;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .app {
-      max-width: 1200px;
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 1.5rem;
+      padding: 2.5rem 3rem;
     }
 
     header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.25rem;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 700;
       margin: 0;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .tabs {
       display: flex;
-      gap: 0.25rem;
-      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 2.25rem;
+      padding: 5px;
       background: var(--surface);
-      padding: 0.25rem;
-      border-radius: 10px;
-      width: fit-content;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
     }
 
     .tabs button {
       font: inherit;
+      font-size: 0.82rem;
       font-weight: 500;
-      padding: 0.6rem 1.2rem;
+      padding: 0.55rem 1.1rem;
       border: none;
       background: transparent;
       color: var(--text-muted);
-      border-radius: 8px;
+      border-radius: 11px;
       cursor: pointer;
-      transition: color 0.2s, background 0.2s;
+      transition: color var(--transition), background var(--transition), box-shadow var(--transition);
+      min-width: 0;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .tabs button:hover {
@@ -105,10 +212,20 @@
     .tabs button[aria-selected="true"] {
       background: var(--accent);
       color: white;
+      border-color: transparent;
+      box-shadow: 0 2px 8px rgba(0,122,255,0.3);
+      font-weight: 600;
     }
 
     .panel {
       display: none;
+      padding-bottom: 2rem;
+      animation: panelIn 0.3s ease;
+    }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .panel.active {
@@ -117,8 +234,9 @@
 
     .loading, .error {
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
       color: var(--text-muted);
+      font-size: 0.95rem;
     }
 
     .error {
@@ -136,77 +254,122 @@
     .theme-toggle {
       font: inherit;
       font-weight: 500;
-      font-size: 0.9rem;
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--border-strong);
       background: var(--surface);
-      color: var(--text);
-      border-radius: 8px;
+      color: var(--text-muted);
+      border-radius: 999px;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      transition: all var(--transition);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .theme-toggle:hover {
       background: var(--surface-hover);
+      color: var(--text);
+      border-color: var(--accent);
     }
 
     .metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
       margin-bottom: 2rem;
     }
 
     .metric-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.35rem;
+      transition: border-color var(--transition), box-shadow var(--transition), transform 0.15s ease;
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
     }
 
     .metric-card.clickable {
       cursor: pointer;
-      transition: transform 0.12s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.15s ease, border-color var(--transition), box-shadow var(--transition);
     }
 
     .metric-card.clickable:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       border-color: var(--accent);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      box-shadow: var(--shadow-md);
     }
 
     .metric-card .label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 0.68rem;
+      color: var(--text-subtle);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.35rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.55rem;
+      font-weight: 600;
     }
 
     .metric-card .value {
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
     }
 
     .metric-card .value.currency {
       color: var(--accent);
     }
 
+    .metric-card .sub {
+      font-size: 0.8rem;
+      color: var(--text-subtle);
+      margin-top: 0.3rem;
+      line-height: 1.35;
+    }
+
+    .metric-card .segment-category {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: none;
+      color: var(--text);
+      letter-spacing: 0;
+    }
+
+    .metric-card .segment-range {
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+      margin-top: 0.15rem;
+    }
+
+    .metric-card .segment-customers {
+      color: var(--accent);
+    }
+
+    .metric-card .segment-revenue {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
     .chart-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
       height: 320px;
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
     }
 
     .chart-wrap h3 {
       margin: 0 0 1rem;
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-muted);
+      letter-spacing: 0;
     }
 
     .customers-list {
@@ -218,52 +381,213 @@
     .customer-view-switch {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 4px;
       margin-bottom: 1rem;
+      padding: 3px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: fit-content;
     }
 
     .customer-view-btn {
       font: inherit;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 0.45rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.75rem;
       cursor: pointer;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .customer-view-btn:hover {
+      color: var(--text);
+      background: var(--surface-hover);
     }
 
     .customer-view-btn.active {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: var(--text);
+      background: var(--accent);
+      color: white;
     }
 
     .customer-subtitle {
       color: var(--text-muted);
       margin-bottom: 0.75rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .customer-sort-controls {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
       margin-bottom: 0.9rem;
     }
 
     .customer-sort-controls label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 500;
     }
 
     .customer-sort-controls select {
       font: inherit;
-      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      border: 1px solid var(--border-strong);
       background: var(--surface);
       color: var(--text);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       padding: 0.4rem 0.65rem;
+      transition: border-color var(--transition);
+    }
+
+    .customer-sort-controls select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .customer-sort-controls input.sales-search-input {
+      font: inherit;
+      font-size: 0.85rem;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.75rem;
+      min-width: 200px;
+      transition: border-color var(--transition);
+    }
+
+    .customer-sort-controls input.sales-search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    #panel-sales .chart-wrap {
+      margin-bottom: 1.75rem;
+    }
+    #panel-sales .chart-wrap:last-of-type {
+      margin-bottom: 2rem;
+    }
+    .chart-wrap.collapsible {
+      height: auto;
+      min-height: 0;
+    }
+    .chart-wrap.collapsible.collapsed {
+      padding: 0;
+      height: auto;
+    }
+    .chart-wrap.collapsible .chart-wrap-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.8rem 1.25rem;
+      margin: 0;
+      border-radius: var(--radius-md);
+      transition: background var(--transition), color var(--transition);
+    }
+    .chart-wrap.collapsible .chart-wrap-toggle:hover {
+      background: var(--surface-hover);
+    }
+    .chart-wrap.collapsible.collapsed .chart-wrap-toggle {
+      border-radius: var(--radius-md);
+    }
+    .chart-wrap.collapsible:not(.collapsed) .chart-wrap-toggle {
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .chart-wrap.collapsible .chart-wrap-icon {
+      font-size: 0.6rem;
+      color: var(--text-subtle);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+    .chart-wrap.collapsible:not(.collapsed) .chart-wrap-icon {
+      transform: rotate(90deg);
+    }
+    .chart-wrap.collapsible .chart-wrap-body {
+      padding: 0 1.25rem 1.25rem;
+      overflow: hidden;
+    }
+    .chart-wrap.collapsible.collapsed .chart-wrap-body {
+      display: none;
+    }
+    .chart-wrap.collapsible .chart-wrap-body canvas {
+      display: block;
+    }
+    .sales-toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+    }
+    .sales-toolbar .customer-sort-controls {
+      margin-bottom: 0;
+      gap: 0.6rem 1rem;
+    }
+    .sales-toolbar .customer-sort-controls label {
+      margin-right: 0;
+    }
+    .sales-table-section {
+      margin-top: 0.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .sales-table-section .section-heading {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .sales-table-section .customer-subtitle {
+      margin-bottom: 0.75rem;
+    }
+    .sales-table-section .table-wrap {
+      border-radius: var(--radius-md);
+    }
+    .see-graphs-btn {
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--accent);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: color var(--transition), background var(--transition), border-color var(--transition);
+    }
+    .see-graphs-btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .sales-graphs-section[hidden] {
+      display: none !important;
+    }
+    .sales-graphs-section {
+      margin-bottom: 1.25rem;
     }
 
     .frequency-summary-grid {
@@ -271,20 +595,22 @@
     }
 
     .distribution-section {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
 
     .distribution-section h3 {
       margin: 0 0 0.75rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
+      font-size: 0.82rem;
+      color: var(--text-subtle);
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .distribution-note {
-      margin-top: 0.55rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-subtle);
     }
 
     .timeline-toolbar {
@@ -304,7 +630,7 @@
 
     .timeline-track {
       display: flex;
-      gap: 0.5rem;
+      gap: 6px;
       overflow-x: auto;
       padding-bottom: 0.25rem;
       margin-bottom: 1rem;
@@ -312,32 +638,39 @@
 
     .timeline-pill {
       font: inherit;
-      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      border: 1px solid var(--border-strong);
       background: var(--surface);
-      color: var(--text);
+      color: var(--text-muted);
       border-radius: 999px;
-      padding: 0.4rem 0.75rem;
+      padding: 0.35rem 0.7rem;
       cursor: pointer;
       white-space: nowrap;
+      transition: all var(--transition);
+    }
+
+    .timeline-pill:hover {
+      background: var(--surface-hover);
+      color: var(--text);
     }
 
     .timeline-pill.active {
       border-color: var(--accent);
       background: var(--accent-soft);
+      color: var(--accent);
     }
 
     .timeline-pill.current-month {
       border-color: var(--success);
-      box-shadow: inset 0 0 0 1px var(--success);
     }
 
     .current-month-badge {
-      margin-left: 0.45rem;
+      margin-left: 0.35rem;
       background: var(--success-soft);
       color: var(--success);
       border-radius: 999px;
-      padding: 0.12rem 0.45rem;
-      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      font-size: 0.65rem;
       font-weight: 600;
       vertical-align: middle;
     }
@@ -345,39 +678,340 @@
     .table-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       overflow-x: auto;
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
     }
 
     .customer-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 860px;
+      table-layout: fixed;
     }
 
     .customer-table th,
     .customer-table td {
-      padding: 0.75rem 0.9rem;
+      padding: 0.7rem 0.9rem;
       border-bottom: 1px solid var(--border);
       text-align: left;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 0;
+      font-size: 0.88rem;
     }
 
     .customer-table th {
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      font-size: 0.7rem;
+      color: var(--text-subtle);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      padding-top: 0.85rem;
+      padding-bottom: 0.65rem;
+      background: var(--surface-alt);
     }
 
     .customer-table tr:last-child td {
       border-bottom: none;
     }
 
+    .customer-table tbody tr {
+      transition: background var(--transition);
+    }
+
+    .customer-table tbody tr:hover {
+      background: var(--surface-hover);
+    }
+
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .table-toolbar .btn {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.35rem 0.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .table-toolbar .btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .table-toolbar .columns-drop {
+      position: relative;
+    }
+
+    .table-toolbar .columns-drop .panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 2px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem;
+      min-width: 160px;
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .table-toolbar .columns-drop.open .panel {
+      display: block;
+    }
+
+    .table-toolbar .columns-drop label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.2rem 0;
+    }
+
+    .customer-table th {
+      position: relative;
+      user-select: none;
+    }
+
+    .customer-table .resizer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 6px;
+      height: 100%;
+      cursor: col-resize;
+      background: transparent;
+    }
+
+    .customer-table .resizer:hover,
+    .customer-table.col-resizing .resizer {
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .customer-table th .th-inner {
+      padding-right: 8px;
+    }
+
+    .customer-table td.select-cell,
+    .customer-table th.select-cell {
+      width: 2rem;
+      min-width: 2rem;
+      max-width: 2rem;
+      text-align: center;
+      vertical-align: middle;
+      overflow: visible;
+    }
+
+    .segment-list-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .segment-list-back {
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .segment-customer-table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+    }
+
+    .segment-customer-table {
+      min-width: 400px;
+    }
+
+    .segment-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15em 0.5em;
+      border-radius: 5px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .segment-badge-orange {
+      background: rgba(234, 88, 12, 0.15);
+      color: #f97316;
+    }
+
+    .segment-badge-yellow {
+      background: rgba(234, 179, 8, 0.15);
+      color: #eab308;
+    }
+
+    .segment-badge-green {
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+    }
+
+    .segment-badge-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+    }
+    .bill-note {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      background: var(--accent-soft);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+    }
+    .bill-alert {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--error);
+      background: var(--error-soft);
+      padding: 0.15em 0.45em;
+      border-radius: 4px;
+    }
+    .bill-link-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .bill-link-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .bill-link-modal-content {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      max-width: 420px;
+      width: 100%;
+      max-height: 80vh;
+      overflow: auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .bill-link-modal-content h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .bill-link-modal-desc { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 1rem; }
+    .bill-link-order-list { max-height: 240px; overflow-y: auto; margin-bottom: 1rem; }
+    .bill-link-order-list label { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0; cursor: pointer; font-size: 0.9rem; }
+    .bill-link-order-list input { margin: 0; }
+    .bill-link-modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+    .manual-bill-form { margin-bottom: 1rem; }
+    .manual-bill-form label { display: block; font-size: 0.9rem; margin-top: 0.75rem; margin-bottom: 0.25rem; }
+    .manual-bill-form label:first-child { margin-top: 0; }
+    .manual-bill-form input { width: 100%; padding: 0.5rem; font-size: 1rem; border: 1px solid var(--border); border-radius: 4px; box-sizing: border-box; }
+    .bill-link-row-actions { font-size: 0.8rem; margin-top: 0.25rem; }
+    .bill-link-btn { padding: 0.2em 0.5em; font-size: 0.75rem; cursor: pointer; background: var(--accent-soft); color: var(--accent); border: none; border-radius: 4px; }
+    .bill-link-btn:hover { opacity: 0.9; }
+    .bill-also-on { font-size: 0.8rem; color: var(--text-muted); }
+    .bill-unlink { margin-left: 0.35rem; cursor: pointer; color: var(--text-muted); text-decoration: none; }
+    .bill-unlink:hover { color: var(--accent); }
+    .overview-chart-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .overview-chart-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .overview-chart-modal-content {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      max-width: 780px;
+      width: 100%;
+      max-height: 85vh;
+      overflow: auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .overview-chart-modal-content h3 {
+      margin: 0 0 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .overview-chart-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--surface-hover);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), color var(--transition);
+    }
+    .overview-chart-modal-close:hover { background: var(--accent-soft); color: var(--accent); }
+    .metric-card.chart-clickable { cursor: pointer; transition: box-shadow var(--transition), border-color var(--transition), transform 0.15s ease; }
+    .metric-card.chart-clickable:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .sales-filter-chip {
+      margin-bottom: 0.75rem;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(79, 143, 247, 0.15);
+    }
+    .sales-table-section .section-heading + .sales-filter-chip { margin-top: 0.25rem; }
+    .sales-filter-chip-label { color: var(--accent); font-weight: 500; }
+    .sales-filter-clear { margin-left: 0.15rem; }
+
     .customer-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       padding: 1.25rem;
     }
 
@@ -398,14 +1032,14 @@
     .month-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       padding: 1.25rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
+      transition: border-color var(--transition);
     }
 
     .month-card.current-month {
       border-color: var(--success);
-      box-shadow: 0 0 0 1px var(--success-soft);
     }
 
     .month-card h3 {
@@ -432,10 +1066,17 @@
       font-size: 1rem;
     }
 
+    .new-customers-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0.75rem 0 0.25rem 0;
+    }
+
     .new-customers-list {
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 0.5rem;
+      margin-top: 0;
       padding-left: 1rem;
     }
 
@@ -460,6 +1101,186 @@
       background: var(--accent-soft);
       color: var(--accent);
     }
+
+    .panel > h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .panel > p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    h3.section-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 2rem 0 0.85rem;
+    }
+
+    .sales-table .order-row {
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .sales-table .order-row:hover {
+      background: var(--surface-hover);
+    }
+    .sales-table .order-row.expanded {
+      background: var(--accent-soft);
+    }
+    .sales-order-detail {
+      background: var(--surface-alt);
+      padding: 1rem 1.25rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sales-order-detail table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .sales-order-detail th,
+    .sales-order-detail td {
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .sales-order-detail th {
+      color: var(--text-subtle);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 768px) {
+      .app {
+        padding: 1rem 1.25rem;
+      }
+      h1 {
+        font-size: 1.25rem;
+      }
+      .tabs {
+        gap: 4px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .tabs button {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.8rem;
+        min-height: 40px;
+        flex-shrink: 0;
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 1.25rem;
+      }
+      .metric-card {
+        padding: 0.9rem;
+      }
+      .metric-card .value {
+        font-size: 1.2rem;
+      }
+      .chart-wrap {
+        padding: 1rem;
+        height: 260px;
+        margin-bottom: 1.25rem;
+      }
+      .customer-view-switch {
+        gap: 3px;
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+      .customer-view-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.78rem;
+        min-height: 40px;
+        flex-shrink: 0;
+      }
+      .customer-sort-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .customer-sort-controls select,
+      .customer-sort-controls input.sales-search-input {
+        min-height: 40px;
+        width: 100%;
+      }
+      .sales-toolbar {
+        padding: 0.75rem;
+        gap: 0.6rem;
+      }
+      .timeline-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .timeline-nav {
+        justify-content: center;
+      }
+      .timeline-nav .theme-toggle {
+        min-height: 40px;
+        flex: 1;
+      }
+      .customer-table th,
+      .customer-table td {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.82rem;
+      }
+      .month-card {
+        padding: 1rem;
+      }
+      .month-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+      .theme-toggle {
+        min-height: 40px;
+      }
+      .overview-chart-modal-content {
+        padding: 1.25rem;
+        border-radius: var(--radius-md);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .app {
+        padding: 0.75rem;
+      }
+      h1 {
+        font-size: 1.1rem;
+      }
+      .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      .metric-card .value {
+        font-size: 1.35rem;
+      }
+      .chart-wrap {
+        height: 240px;
+      }
+      .customer-view-btn {
+        width: 100%;
+      }
+      .month-stats {
+        grid-template-columns: 1fr;
+      }
+      .distribution-section h3,
+      h2[style*="font-size"] {
+        font-size: 1rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -475,29 +1296,167 @@
     <div id="error" class="error" style="display: none;"></div>
 
     <div id="content" style="display: none;">
-      <div class="tabs" role="tablist">
-        <button type="button" role="tab" aria-selected="true" aria-controls="panel-master" id="tab-master">Master metrics</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="panel-customers" id="tab-customers">Customer breakdown</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="panel-user-distribution" id="tab-user-distribution">User distribution</button>
+      <div class="tabs" role="tablist" aria-label="Main sections">
+        <button type="button" role="tab" aria-selected="true" aria-controls="panel-master" id="tab-master">Overview</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-sales" id="tab-sales">Sales</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-user-analysis" id="tab-user-analysis">User Analysis</button>
         <button type="button" role="tab" aria-selected="false" aria-controls="panel-monthly" id="tab-monthly">Monthly assessment</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-concentration" id="tab-concentration">Concentration &amp; Risk</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-forecast" id="tab-forecast">Forecasting</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="panel-crm" id="tab-crm">CRM</button>
       </div>
 
-      <div id="panel-master" class="panel active" role="tabpanel">
+      <div id="panel-master" class="panel active" role="tabpanel" aria-labelledby="tab-master">
         <div class="metrics-grid" id="master-metrics"></div>
+        <div class="chart-wrap">
+          <h3>Revenue by day</h3>
+          <canvas id="chart-overview-daily" height="220"></canvas>
+        </div>
         <div class="chart-wrap">
           <h3>Revenue by month</h3>
           <canvas id="chart-revenue" height="240"></canvas>
         </div>
       </div>
 
-      <div id="panel-customers" class="panel" role="tabpanel">
-        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-muted);">Customer breakdown</h2>
+      <div id="panel-sales" class="panel" role="tabpanel" aria-labelledby="tab-sales">
+        <h2>Sales</h2>
+        <div id="sales-overview-cards" class="metrics-grid" style="margin-bottom: 1.25rem;"></div>
+        <p style="margin-bottom: 1rem;">
+          <button type="button" class="see-graphs-btn" id="sales-see-graphs" aria-expanded="false" aria-controls="sales-graphs-section">See graphs</button>
+        </p>
+        <div id="sales-graphs-section" class="sales-graphs-section" hidden>
+          <div class="chart-wrap collapsible collapsed" id="chart-wrap-daily">
+            <button type="button" class="chart-wrap-toggle" aria-expanded="false" aria-controls="chart-daily-body" id="chart-daily-toggle">
+              <span class="chart-wrap-icon" aria-hidden="true">▶</span>
+              <h3>Daily sales</h3>
+            </button>
+            <div class="chart-wrap-body" id="chart-daily-body">
+              <canvas id="chart-daily-sales" height="220"></canvas>
+            </div>
+          </div>
+          <div class="chart-wrap collapsible collapsed" id="chart-wrap-cumulative">
+            <button type="button" class="chart-wrap-toggle" aria-expanded="false" aria-controls="chart-cumulative-body" id="chart-cumulative-toggle">
+              <span class="chart-wrap-icon" aria-hidden="true">▶</span>
+              <h3>Total order value (cumulative)</h3>
+            </button>
+            <div class="chart-wrap-body" id="chart-cumulative-body">
+              <canvas id="chart-cumulative-sales" height="220"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="sales-toolbar">
+          <div class="customer-sort-controls">
+            <label for="sales-period">Period</label>
+            <select id="sales-period">
+              <option value="all">All time</option>
+              <option value="year">This year</option>
+              <option value="month">This month</option>
+              <option value="3months">Last 3 months</option>
+              <option value="30days">Last 30 days</option>
+              <option value="7days">Last 7 days</option>
+            </select>
+            <label for="sales-view">View</label>
+            <select id="sales-view">
+              <option value="orders">Orders</option>
+              <option value="day">By day</option>
+              <option value="week">By week</option>
+              <option value="month">By month</option>
+              <option value="year">By year</option>
+            </select>
+            <label for="sales-search">Search</label>
+            <input type="text" id="sales-search" placeholder="Customer or order #" class="sales-search-input" />
+            <label for="sales-bill-filter">Bill</label>
+            <select id="sales-bill-filter">
+              <option value="all">All orders</option>
+              <option value="with_bill">With bill</option>
+              <option value="no_bill">No bill</option>
+            </select>
+            <label for="sales-sort">Sort</label>
+            <select id="sales-sort">
+              <option value="date_desc">Date (newest first)</option>
+              <option value="date_asc">Date (oldest first)</option>
+              <option value="total_desc">Value (high → low)</option>
+              <option value="total_asc">Value (low → high)</option>
+              <option value="customer_asc">Customer (A–Z)</option>
+              <option value="customer_desc">Customer (Z–A)</option>
+            </select>
+          </div>
+        </div>
+        <section id="sales-list-section" class="sales-table-section" aria-labelledby="sales-table-heading">
+          <h3 id="sales-table-heading" class="section-heading">Orders</h3>
+          <div id="sales-filter-chip" class="sales-filter-chip" style="display: none;"></div>
+          <div id="sales-subtitle" class="customer-subtitle"></div>
+          <div id="sales-table-wrap"></div>
+        </section>
+        <div id="link-bill-modal" class="bill-link-modal" role="dialog" aria-labelledby="link-bill-modal-title" aria-modal="true" style="display: none;">
+          <div class="bill-link-modal-backdrop"></div>
+          <div class="bill-link-modal-content">
+            <h3 id="link-bill-modal-title">Link bill to more orders</h3>
+            <p class="bill-link-modal-desc">Select orders that are covered by this same vendor bill (combined order).</p>
+            <div id="link-bill-order-list" class="bill-link-order-list"></div>
+            <div class="bill-link-modal-actions">
+              <button type="button" class="theme-toggle" id="link-bill-cancel">Cancel</button>
+              <button type="button" class="theme-toggle link-bill-save" id="link-bill-save">Save</button>
+            </div>
+          </div>
+        </div>
+        <div id="manual-bill-modal" class="bill-link-modal" role="dialog" aria-labelledby="manual-bill-modal-title" aria-modal="true" style="display: none;">
+          <div class="bill-link-modal-backdrop"></div>
+          <div class="bill-link-modal-content">
+            <h3 id="manual-bill-modal-title">Add manual bill</h3>
+            <p class="bill-link-modal-desc">Enter the vendor bill (PO) amount and invoice reference for this order.</p>
+            <div class="manual-bill-form">
+              <label for="manual-bill-ref">INV reference</label>
+              <input type="text" id="manual-bill-ref" placeholder="e.g. INV-12345" autocomplete="off">
+              <label for="manual-bill-amount">Amount</label>
+              <input type="number" id="manual-bill-amount" step="0.01" min="0" placeholder="0.00">
+            </div>
+            <div class="bill-link-modal-actions">
+              <button type="button" class="theme-toggle" id="manual-bill-cancel">Cancel</button>
+              <button type="button" class="theme-toggle link-bill-save" id="manual-bill-save">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-user-analysis" class="panel" role="tabpanel" aria-labelledby="tab-user-analysis">
+        <h2>User Analysis</h2>
+        <div class="distribution-section" id="activation-rate-section">
+          <h3>Activation Rate</h3>
+          <div class="metrics-grid" id="activation-rate-cards">
+            <div class="metric-card"><div class="label">Loading CRM…</div></div>
+          </div>
+          <p id="activation-rate-note" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"></p>
+          <div id="activation-rate-detail" style="display: none; margin-top: 0.75rem;"></div>
+        </div>
+        <div class="distribution-section" id="distribution-cards-section">
+          <h3>Customer Type</h3>
+          <div class="metrics-grid" id="power-distribution-cards"></div>
+          <div class="distribution-note" id="power-distribution-note"></div>
+        </div>
+        <div id="segment-customer-list-section" class="segment-list-section" style="display: none;">
+          <button type="button" class="theme-toggle segment-list-back" id="segment-list-back">← Back to segments</button>
+          <h3 id="segment-list-title"></h3>
+          <div class="segment-customer-table-wrap">
+            <table class="customer-table segment-customer-table">
+              <thead>
+                <tr><th>Customer</th><th># Orders</th><th>Revenue</th></tr>
+              </thead>
+              <tbody id="segment-customer-list-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <h3 class="section-heading">Customer Listing</h3>
         <div class="customer-view-switch">
-          <button type="button" class="customer-view-btn active" data-view="unique_customers">All unique customers</button>
-          <button type="button" class="customer-view-btn" data-view="users_2_plus">Users (2+ orders)</button>
-          <button type="button" class="customer-view-btn" data-view="one_order">One-order customers</button>
+          <button type="button" class="customer-view-btn active" data-view="unique_customers">All</button>
+          <button type="button" class="customer-view-btn" data-view="1 order">One-time buyers</button>
+          <button type="button" class="customer-view-btn" data-view="2-5 orders">Repeat customers</button>
+          <button type="button" class="customer-view-btn" data-view="6-20 orders">Loyal customers</button>
+          <button type="button" class="customer-view-btn" data-view="20+ orders">Champions</button>
         </div>
         <div class="customer-sort-controls">
+          <label for="customer-search">Search</label>
+          <input type="text" id="customer-search" placeholder="Customer name…" class="sales-search-input" />
           <label for="customer-sort-field">Sort by</label>
           <select id="customer-sort-field">
             <option value="orders">Orders</option>
@@ -510,26 +1469,62 @@
             <option value="asc">Ascending</option>
           </select>
         </div>
-        <div class="metrics-grid frequency-summary-grid" id="frequency-summary"></div>
         <div id="customers-subtitle" class="customer-subtitle"></div>
         <div id="customers-table-wrap"></div>
       </div>
 
-      <div id="panel-user-distribution" class="panel" role="tabpanel">
-        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-muted);">User distribution</h2>
-        <div class="distribution-section">
-          <h3>Order-frequency segment mix</h3>
-          <div id="power-distribution-table"></div>
-          <div class="distribution-note" id="power-distribution-note"></div>
-        </div>
-        <div class="chart-wrap" style="margin-bottom: 1rem;">
-          <h3>Revenue by order-frequency segment</h3>
-          <canvas id="chart-power-distribution" height="220"></canvas>
+      <div id="panel-concentration" class="panel" role="tabpanel" aria-labelledby="tab-concentration">
+        <h2>Concentration &amp; Risk</h2>
+        <p style="margin-bottom: 1.25rem;">Revenue concentration and impact if top accounts churn. Use this to prioritize retention and diversify exposure.</p>
+        <div class="metrics-grid" id="concentration-cards"></div>
+        <h3 class="section-heading" style="margin-top: 1.5rem;">If top accounts churn</h3>
+        <div class="metrics-grid" id="concentration-churn-cards"></div>
+        <h3 class="section-heading" style="margin-top: 1.5rem;">Top 20 accounts by revenue</h3>
+        <div class="table-wrap">
+          <table class="customer-table" id="concentration-top-table">
+            <thead>
+              <tr><th>#</th><th>Customer</th><th>Revenue</th><th>% of total</th></tr>
+            </thead>
+            <tbody id="concentration-top-body"></tbody>
+          </table>
         </div>
       </div>
 
-      <div id="panel-monthly" class="panel" role="tabpanel">
-        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-muted);">Monthly timeline</h2>
+      <div id="panel-forecast" class="panel" role="tabpanel" aria-labelledby="tab-forecast">
+        <h2>Forecasting</h2>
+        <p style="margin-bottom: 1.25rem;">Run rate, growth, and short-term revenue outlook. Trend forecast applies recent 90-day growth to the next period.</p>
+        <div class="metrics-grid" id="forecast-pace-cards"></div>
+        <h3 class="section-heading" style="margin-top: 1.5rem;">Run rate (annualized)</h3>
+        <div class="metrics-grid" id="forecast-runrate-cards"></div>
+        <h3 class="section-heading" style="margin-top: 1.5rem;">Revenue forecast</h3>
+        <div class="metrics-grid" id="forecast-forecast-cards"></div>
+        <h3 class="section-heading" style="margin-top: 1.5rem;">Rolling revenue &amp; monthly trend</h3>
+        <div class="chart-wrap" style="margin-top: 0.75rem;">
+          <canvas id="chart-forecast-rolling" height="260"></canvas>
+        </div>
+        <p id="forecast-note" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;"></p>
+      </div>
+
+      <div id="panel-crm" class="panel" role="tabpanel" aria-labelledby="tab-crm">
+        <h2>CRM</h2>
+        <div class="metrics-grid" id="crm-summary-cards"></div>
+        <div class="sales-toolbar" style="margin-top: 1rem;">
+          <div class="customer-sort-controls">
+            <label for="crm-search">Search</label>
+            <input type="text" id="crm-search" placeholder="Name or notes…" class="sales-search-input" />
+            <label for="crm-status-filter">Status</label>
+            <select id="crm-status-filter">
+              <option value="all">All statuses</option>
+            </select>
+          </div>
+        </div>
+        <div class="customer-subtitle" id="crm-subtitle"></div>
+        <div id="crm-table-wrap"></div>
+        <div id="crm-error" class="error" style="display: none;"></div>
+      </div>
+
+      <div id="panel-monthly" class="panel" role="tabpanel" aria-labelledby="tab-monthly">
+        <h2>Monthly Timeline</h2>
         <div class="timeline-toolbar">
           <div class="customer-view-switch" id="timeline-group-buttons" style="margin-bottom: 0;">
             <button type="button" class="customer-view-btn active" data-group-size="1">1 month</button>
@@ -549,17 +1544,56 @@
         <div id="timeline-month-list"></div>
       </div>
     </div>
+
+    <div id="overview-chart-modal" class="overview-chart-modal" style="display: none;" role="dialog" aria-modal="true">
+      <div class="overview-chart-modal-backdrop"></div>
+      <div class="overview-chart-modal-content">
+        <button type="button" class="overview-chart-modal-close" aria-label="Close">&times;</button>
+        <h3 id="overview-chart-modal-title"></h3>
+        <div style="position: relative; height: 340px;">
+          <canvas id="overview-chart-modal-canvas"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
     let chartRevenue = null;
+    let chartDailySales = null;
+    let chartCumulativeSales = null;
     let chartPowerDistribution = null;
-    let customerLists = { unique_customers: [], users_2_plus: [], one_order: [] };
+    let chartForecastRolling = null;
+    let chartOverviewModal = null;
+    let overviewSeriesData = null;
+    let orderFrequencyData = null;
+    let chartOverviewDaily = null;
+    let customerLists = { unique_customers: [], users_2_plus: [], one_order: [], '1 order': [], '2-5 orders': [], '6-20 orders': [], '20+ orders': [] };
     let activeCustomerView = 'unique_customers';
     let customerSort = { field: 'total_order_value', direction: 'desc' };
     let monthlyTimelineData = [];
     let monthlyGroupSize = 1;
     let monthlyGroupIndex = 0;
+
+    const segmentBadgeConfig = {
+      '1 order': { label: 'One-time buyer', class: 'segment-badge-orange' },
+      '2-5 orders': { label: 'Repeat customer', class: 'segment-badge-yellow' },
+      '6-20 orders': { label: 'Loyal customer', class: 'segment-badge-green' },
+      '20+ orders': { label: 'Champion', class: 'segment-badge-blue' },
+    };
+
+    function getSegmentFromOrders(orders) {
+      const n = Number(orders) || 0;
+      if (n <= 1) return '1 order';
+      if (n <= 5) return '2-5 orders';
+      if (n <= 20) return '6-20 orders';
+      return '20+ orders';
+    }
+
+    function getSegmentBadgeHtml(segmentKey) {
+      const cfg = segmentKey ? segmentBadgeConfig[segmentKey] : null;
+      if (!cfg) return '';
+      return ` <span class="segment-badge ${cfg.class}" title="${escapeHtml(cfg.label)}">${escapeHtml(cfg.label)}</span>`;
+    }
 
     function showLoading() {
       document.getElementById('loading').style.display = 'block';
@@ -580,12 +1614,34 @@
       document.getElementById('error').style.display = 'none';
       document.getElementById('content').style.display = 'block';
 
+      lastMaster = data.master;
+      lastBillsData = data.bills || { order_bills: {}, summary: {} };
+      const merged = mergeBillOrderLinks(lastBillsData);
+      const mergedBills = {
+        ...lastBillsData,
+        order_bills: merged.order_bills,
+        summary: { ...(lastBillsData.summary || {}), total_bill_amount: merged.unique_total_bill_amount },
+      };
+      overviewSeriesData = data.overview_series || null;
+      orderFrequencyData = data.order_frequency || null;
       renderMaster(data.master, data.chart, data.order_frequency);
       renderCustomers(data);
       renderMonthly(data.monthly);
-      renderOrderFrequency(data.order_frequency);
       renderPowerUserDistribution(data.power_user_distribution);
+      renderConcentration(data.concentration);
+      renderForecast(data.forecast);
+      renderSales(data.sales, mergedBills);
+      renderSalesOverviewCards(data.master, mergedBills);
+      renderDailySalesCharts(data.daily_sales || { days: [], revenues: [], cumulative: [], daily_bills: [], cumulative_bills: [] });
+      renderOverviewDailyChart(data.daily_sales || { days: [], revenues: [] });
+
+      const allCustomers = (data.customer_lists && data.customer_lists.unique_customers) || [];
+      odooCustomerNames = new Set(allCustomers.map(c => (c.name || '').trim().toLowerCase()));
+      loadCRM();
+
       setupTabs();
+      setupSalesSeeGraphs();
+      setupSalesChartToggles();
     }
 
     function formatCurrency(n) {
@@ -597,6 +1653,23 @@
       return Number(value).toFixed(2) + ' days';
     }
 
+    function formatLocalDate(utcStr) {
+      if (!utcStr) return 'N/A';
+      const d = new Date(utcStr);
+      if (isNaN(d.getTime())) return utcStr.slice(0, 10);
+      return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    }
+
+    function toLocalDateISO(utcStr) {
+      if (!utcStr) return '';
+      const d = new Date(utcStr);
+      if (isNaN(d.getTime())) return utcStr.slice(0, 10);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
     function renderMaster(master, chartData, orderFrequency) {
       const grid = document.getElementById('master-metrics');
       const avgLifetime = master.avg_customer_lifetime_revenue != null
@@ -604,26 +1677,25 @@
         : (master.unique_customers > 0 ? master.total_sales / master.unique_customers : 0);
       const repeatCadence = orderFrequency ? orderFrequency.avg_days_power_users : null;
       const items = [
-        { label: 'Total lifetime sales', value: formatCurrency(master.total_sales), currency: true },
-        { label: 'Unique customers', value: master.unique_customers.toLocaleString(), clickView: 'unique_customers' },
-        { label: 'Users (2+ orders)', value: master.users_count.toLocaleString(), clickView: 'users_2_plus' },
-        { label: 'Time between orders (repeat 2+)', value: formatDays(repeatCadence) },
-        { label: 'Customer lifetime value (avg)', value: formatCurrency(avgLifetime), currency: true },
-        { label: 'Total orders', value: master.total_orders.toLocaleString() },
-        { label: 'Overall AOV', value: formatCurrency(master.overall_aov), currency: true },
-        { label: 'Engraving Order Rate', value: master.engraving_rate + '%' },
+        { label: 'Total lifetime sales', value: formatCurrency(master.total_sales), currency: true, chartKey: 'cum_revenue' },
+        { label: 'Unique customers', value: master.unique_customers.toLocaleString(), chartKey: 'cum_customers' },
+        { label: 'Users (2+ orders)', value: master.users_count.toLocaleString(), chartKey: 'cum_users_2plus' },
+        { label: 'Time between orders (repeat 2+)', value: formatDays(repeatCadence), chartKey: 'avg_days_between' },
+        { label: 'Customer lifetime value (avg)', value: formatCurrency(avgLifetime), currency: true, chartKey: 'cum_clv' },
+        { label: 'Total orders', value: master.total_orders.toLocaleString(), chartKey: 'cum_orders' },
+        { label: 'Overall AOV', value: formatCurrency(master.overall_aov), currency: true, chartKey: 'monthly_aov' },
+        { label: 'Engraving Order Rate', value: master.engraving_rate + '%', chartKey: 'monthly_engraving_rate' },
       ];
-      grid.innerHTML = items.map(({ label, value, currency, clickView }) =>
-        `<div class="metric-card ${clickView ? 'clickable' : ''}" ${clickView ? `data-customer-view="${clickView}"` : ''}>
+      grid.innerHTML = items.map(({ label, value, currency, chartKey }) =>
+        `<div class="metric-card chart-clickable" data-chart-key="${chartKey}">
           <div class="label">${label}</div>
           <div class="value ${currency ? 'currency' : ''}">${value}</div>
         </div>`
       ).join('');
 
-      grid.querySelectorAll('.metric-card.clickable').forEach(card => {
+      grid.querySelectorAll('.metric-card.chart-clickable').forEach(card => {
         card.addEventListener('click', () => {
-          const view = card.getAttribute('data-customer-view');
-          openCustomerView(view);
+          openOverviewChartModal(card.getAttribute('data-chart-key'));
         });
       });
 
@@ -653,14 +1725,207 @@
       });
     }
 
+    function renderOverviewDailyChart(dailySales) {
+      const days = (dailySales && dailySales.days) || [];
+      const revenues = (dailySales && dailySales.revenues) || [];
+      const ctx = document.getElementById('chart-overview-daily');
+      if (!ctx || !days.length) return;
+      if (chartOverviewDaily) chartOverviewDaily.destroy();
+      chartOverviewDaily = new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: days,
+          datasets: [{
+            label: 'Daily revenue',
+            data: revenues,
+            borderColor: 'rgb(34, 197, 94)',
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 1,
+            pointHoverRadius: 6,
+            pointHitRadius: 10,
+            borderWidth: 1.5,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: function(items) { return items[0] ? items[0].label : ''; },
+                label: function(ctx) { return 'Revenue: $' + Number(ctx.raw).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: { color: '#8b9cb3', maxTicksLimit: 12, maxRotation: 45, callback: function(val, idx) { return days[idx] ? days[idx].slice(0, 7) : ''; } },
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: { color: '#8b9cb3', callback: v => '$' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v) },
+            },
+          },
+        },
+      });
+    }
+
+    function scrollToSalesList() {
+      const listSection = document.getElementById('sales-list-section');
+      if (listSection) listSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderSalesOverviewCards(master, bills) {
+      const el = document.getElementById('sales-overview-cards');
+      if (!el) return;
+      const sales = (master && master.total_sales) || 0;
+      const cogs = (bills && bills.summary && bills.summary.total_bill_amount) || 0;
+      // Only orders that have at least one bill; when a bill is linked to multiple orders, we use total of those orders' sales and the bill once
+      const salesWithBills = salesListAll
+        .filter(o => (salesBillsByOrderId[o.id]?.length || 0) > 0)
+        .reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+      const netMargin = salesWithBills - cogs;
+      const netMarginPct = salesWithBills > 0 ? (netMargin / salesWithBills) * 100 : null;
+      const missingBillsCount = salesListAll.filter(o => !(salesBillsByOrderId[o.id]?.length)).length;
+      const cards = [
+        { label: 'Total sales', value: formatCurrency(sales), sub: null, showNoBills: false },
+        { label: 'Total COGS', value: formatCurrency(cogs), sub: missingBillsCount + ' missing bill' + (missingBillsCount !== 1 ? 's' : ''), showNoBills: missingBillsCount > 0 },
+        { label: 'Net margin', value: formatCurrency(netMargin), sub: netMarginPct != null ? netMarginPct.toFixed(1) + '%' : null, showNoBills: false },
+      ];
+      el.innerHTML = cards.map(({ label, value, sub, showNoBills }) =>
+        `<div class="metric-card clickable" data-show-no-bills="${showNoBills}">
+          <div class="label">${escapeHtml(label)}</div>
+          <div class="value currency">${value}</div>${sub != null ? `<div class="sub">${escapeHtml(sub)}</div>` : ''}
+        </div>`
+      ).join('');
+      el.querySelectorAll('.metric-card').forEach(card => {
+        card.addEventListener('click', () => {
+          scrollToSalesList();
+          if (card.getAttribute('data-show-no-bills') === 'true') {
+            salesFilterNoBillsOnly = true;
+            const billFilterEl = document.getElementById('sales-bill-filter');
+            if (billFilterEl) billFilterEl.value = 'no_bill';
+            const tabSales = document.getElementById('tab-sales');
+            const panelSales = document.getElementById('panel-sales');
+            if (tabSales && panelSales) {
+              document.querySelectorAll('.tabs button').forEach(t => { t.setAttribute('aria-selected', 'false'); });
+              document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+              tabSales.setAttribute('aria-selected', 'true');
+              panelSales.classList.add('active');
+            }
+            renderSalesTable(getSalesFilteredAndSorted());
+          }
+        });
+      });
+    }
+
+    function renderDailySalesCharts(dailySales) {
+      if (dailySales && dailySales.days) dailySalesData = dailySales;
+      const periodKey = (document.getElementById('sales-period') && document.getElementById('sales-period').value) || 'all';
+      const cutoff = getSalesPeriodCutoff(periodKey);
+      let days = dailySalesData.days || [];
+      let revenues = dailySalesData.revenues || [];
+      let cumulative = dailySalesData.cumulative || [];
+      let dailyBills = dailySalesData.daily_bills || [];
+      let cumulativeBills = dailySalesData.cumulative_bills || [];
+      if (cutoff && days.length) {
+        const idx = days.findIndex(d => d >= cutoff);
+        if (idx >= 0) {
+          days = days.slice(idx);
+          revenues = revenues.slice(idx);
+          cumulative = cumulative.slice(idx);
+          dailyBills = dailyBills.slice(idx);
+          cumulativeBills = cumulativeBills.slice(idx);
+        } else {
+          days = [];
+          revenues = [];
+          cumulative = [];
+          dailyBills = [];
+          cumulativeBills = [];
+        }
+      }
+      const dailyProfit = days.map((_, i) => round((revenues[i] || 0) - (dailyBills[i] || 0), 2));
+      const cumulativeProfit = days.map((_, i) => round((cumulative[i] || 0) - (cumulativeBills[i] || 0), 2));
+      const gridColor = 'rgba(255,255,255,0.06)';
+      const tickColor = '#8b9cb3';
+      const yAxis = { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => '$' + (v / 1000) + 'k' } };
+
+      const ctxDaily = document.getElementById('chart-daily-sales').getContext('2d');
+      if (chartDailySales) chartDailySales.destroy();
+      chartDailySales = new Chart(ctxDaily, {
+        type: 'line',
+        data: {
+          labels: days,
+          datasets: [
+            { label: 'Daily sales', data: revenues, borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.2 },
+            { label: 'Daily bills', data: dailyBills, borderColor: 'rgb(234, 88, 12)', backgroundColor: 'rgba(234, 88, 12, 0.1)', fill: true, tension: 0.2 },
+            { label: 'Daily profit', data: dailyProfit, borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.2 },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: true, onClick: (e, legendItem, legend) => { const idx = legendItem.datasetIndex; const ci = legend.chart; ci.getDatasetMeta(idx).hidden = !ci.getDatasetMeta(idx).hidden; ci.update(); } },
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: tickColor, maxRotation: 45 } },
+            y: yAxis,
+          },
+        },
+      });
+
+      const ctxCum = document.getElementById('chart-cumulative-sales').getContext('2d');
+      if (chartCumulativeSales) chartCumulativeSales.destroy();
+      chartCumulativeSales = new Chart(ctxCum, {
+        type: 'line',
+        data: {
+          labels: days,
+          datasets: [
+            { label: 'Total order value', data: cumulative, borderColor: 'rgb(168, 85, 247)', backgroundColor: 'rgba(168, 85, 247, 0.1)', fill: true, tension: 0.2 },
+            { label: 'Total bill value', data: cumulativeBills, borderColor: 'rgb(234, 88, 12)', backgroundColor: 'rgba(234, 88, 12, 0.1)', fill: true, tension: 0.2 },
+            { label: 'Cumulative profit', data: cumulativeProfit, borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.2 },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: true, onClick: (e, legendItem, legend) => { const idx = legendItem.datasetIndex; const ci = legend.chart; ci.getDatasetMeta(idx).hidden = !ci.getDatasetMeta(idx).hidden; ci.update(); } },
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: tickColor, maxRotation: 45 } },
+            y: yAxis,
+          },
+        },
+      });
+    }
+
+    function round(n, d) {
+      const m = Math.pow(10, d || 0);
+      return Math.round(n * m) / m;
+    }
+
     function renderCustomers(data) {
+      const all = (data.customer_lists && data.customer_lists.unique_customers) || [];
       customerLists = {
-        unique_customers: (data.customer_lists && data.customer_lists.unique_customers) || [],
-        users_2_plus: (data.customer_lists && data.customer_lists.users_2_plus) || [],
-        one_order: (data.customer_lists && data.customer_lists.one_order) || []
+        unique_customers: all,
+        users_2_plus: all.filter(c => getSegmentFromOrders(c.orders) !== '1 order'),
+        one_order: all.filter(c => getSegmentFromOrders(c.orders) === '1 order'),
+        '1 order': all.filter(c => getSegmentFromOrders(c.orders) === '1 order'),
+        '2-5 orders': all.filter(c => getSegmentFromOrders(c.orders) === '2-5 orders'),
+        '6-20 orders': all.filter(c => getSegmentFromOrders(c.orders) === '6-20 orders'),
+        '20+ orders': all.filter(c => getSegmentFromOrders(c.orders) === '20+ orders'),
       };
 
-      document.querySelectorAll('.customer-view-btn').forEach(btn => {
+      document.querySelectorAll('#panel-user-analysis .customer-view-btn[data-view]').forEach(btn => {
         btn.addEventListener('click', () => setCustomerView(btn.getAttribute('data-view')));
       });
 
@@ -676,6 +1941,11 @@
         customerSort.direction = sortDirection.value;
         setCustomerView(activeCustomerView);
       };
+
+      const customerSearchEl = document.getElementById('customer-search');
+      if (customerSearchEl) {
+        customerSearchEl.oninput = () => setCustomerView(activeCustomerView);
+      }
 
       setCustomerView(activeCustomerView);
     }
@@ -704,26 +1974,34 @@
     }
 
     function setCustomerView(view) {
-      if (!customerLists[view]) view = 'unique_customers';
+      if (!view || !customerLists[view]) view = 'unique_customers';
       activeCustomerView = view;
 
       const subtitle = document.getElementById('customers-subtitle');
       const tableWrap = document.getElementById('customers-table-wrap');
-      const rows = customerLists[view] || [];
-      const sortedRows = getSortedCustomerRows(rows);
+      const allRows = customerLists[view] || [];
+      const q = (document.getElementById('customer-search')?.value || '').trim().toLowerCase();
+      const filtered = q ? allRows.filter(c => (c.name || '').toLowerCase().includes(q)) : allRows;
+      const sortedRows = getSortedCustomerRows(filtered);
       const labelMap = {
-        unique_customers: 'All unique customers',
-        users_2_plus: 'Customers with 2+ orders',
-        one_order: 'Customers with exactly 1 order'
+        unique_customers: 'All',
+        '1 order': 'One-time buyers',
+        '2-5 orders': 'Repeat customers',
+        '6-20 orders': 'Loyal customers',
+        '20+ orders': 'Champions',
       };
 
-      subtitle.textContent = `${labelMap[view]} · ${rows.length.toLocaleString()} customers`;
-      document.querySelectorAll('.customer-view-btn').forEach(btn => {
+      const totalCount = allRows.length;
+      const shownCount = filtered.length;
+      subtitle.textContent = q
+        ? `${labelMap[view] || view} · ${shownCount.toLocaleString()} of ${totalCount.toLocaleString()} customers`
+        : `${labelMap[view] || view} · ${totalCount.toLocaleString()} customers`;
+      document.querySelectorAll('#panel-user-analysis .customer-view-btn[data-view]').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-view') === view);
       });
 
-      if (!rows.length) {
-        tableWrap.innerHTML = '<div class="customer-card"><div class="detail">No customer records found for this view.</div></div>';
+      if (!sortedRows.length) {
+        tableWrap.innerHTML = '<div class="customer-card"><div class="detail">No customer records found.</div></div>';
         return;
       }
 
@@ -743,24 +2021,25 @@
             <tbody>
               ${sortedRows.map(c => `
                 <tr>
-                  <td>${escapeHtml(c.name)}</td>
+                  <td>${escapeHtml(c.name)}${getSegmentBadgeHtml(getSegmentFromOrders(c.orders))}</td>
                   <td>${(c.orders || 0).toLocaleString()}</td>
                   <td>${formatCurrency(c.total_order_value || 0)}</td>
                   <td>${formatCurrency(c.average_order_value || 0)}</td>
                   <td>${formatDays(c.avg_days_between_orders)}</td>
-                  <td>${c.last_order_date ? escapeHtml(c.last_order_date) : 'N/A'}</td>
+                  <td>${formatLocalDate(c.last_order_date)}</td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
         </div>
       `;
+      enhanceTable(tableWrap, { exportFilename: 'customers.csv' });
     }
 
     function openCustomerView(view) {
-      setCustomerView(view);
-      const customerTab = document.getElementById('tab-customers');
-      if (customerTab) customerTab.click();
+      setCustomerView(view || 'unique_customers');
+      const tab = document.getElementById('tab-user-analysis');
+      if (tab) tab.click();
     }
 
     function getMonthlyGroups(monthly, groupSize) {
@@ -846,20 +2125,24 @@
       const totalRevenue = activeGroup.months.reduce((sum, m) => sum + (m.revenue || 0), 0);
       const totalOrders = activeGroup.months.reduce((sum, m) => sum + (m.orders || 0), 0);
       const totalNewCustomers = activeGroup.months.reduce((sum, m) => sum + (m.new_customers_count || 0), 0);
+      const totalNewUsers2Plus = activeGroup.months.reduce((sum, m) => sum + (m.new_customers_2_plus || 0), 0);
       const avgAov = totalOrders > 0 ? totalRevenue / totalOrders : 0;
-      const weightedEngravingRate = totalOrders > 0
-        ? activeGroup.months.reduce((sum, m) => sum + ((m.engraving_rate || 0) * (m.orders || 0)), 0) / totalOrders
-        : 0;
+      const totalEngravedOrders = activeGroup.months.reduce((sum, m) => {
+        if (m.engraved_orders != null) return sum + m.engraved_orders;
+        return sum + Math.round(((m.engraving_rate || 0) / 100) * (m.orders || 0));
+      }, 0);
+      const periodEngravingRate = totalOrders > 0 ? (totalEngravedOrders / totalOrders) * 100 : 0;
 
       const summaryItems = [
         { label: 'Period revenue', value: formatCurrency(totalRevenue), currency: true },
         { label: 'Period orders', value: totalOrders.toLocaleString() },
         { label: 'Period AOV', value: formatCurrency(avgAov), currency: true },
         { label: 'New customers', value: totalNewCustomers.toLocaleString() },
-        { label: 'Engraving rate (weighted)', value: `${weightedEngravingRate.toFixed(2)}%` },
+        { label: 'New users (2+ orders)', value: totalNewUsers2Plus.toLocaleString() },
+        { label: 'Engraving rate', value: `${periodEngravingRate.toFixed(2)}%`, title: 'Orders with at least one engraving product / total orders' },
       ];
-      timelineSummary.innerHTML = summaryItems.map(({ label, value, currency }) =>
-        `<div class="metric-card">
+      timelineSummary.innerHTML = summaryItems.map(({ label, value, currency, title }) =>
+        `<div class="metric-card" ${title ? `title="${escapeHtml(title)}"` : ''}>
           <div class="label">${label}</div>
           <div class="value ${currency ? 'currency' : ''}">${value}</div>
         </div>`
@@ -870,7 +2153,7 @@
           ? `<span class="badge ${m.aov_growth_pct >= 0 ? 'up' : 'flat'}">AOV MoM ${m.aov_growth_display}</span>`
           : `<span class="badge flat">${m.aov_growth_display}</span>`;
         const newList = m.new_customers.length
-          ? `<ul class="new-customers-list">${m.new_customers.map(n => `<li>${escapeHtml(n)}</li>`).join('')}</ul>`
+          ? `<h4 class="new-customers-title">New Customers</h4><ul class="new-customers-list">${m.new_customers.map(n => { const name = typeof n === 'string' ? n : (n && n.name || ''); const segment = (typeof n === 'object' && n && n.segment) ? n.segment : '1 order'; return `<li>${escapeHtml(name)}${getSegmentBadgeHtml(segment)}</li>`; }).join('')}</ul>`
           : '';
         const isCurrentMonth = m.month === currentMonthKey;
         return `<div class="month-card ${isCurrentMonth ? 'current-month' : ''}">
@@ -880,6 +2163,7 @@
             <span>Orders <strong>${m.orders}</strong></span>
             <span>Unique customers <strong>${m.unique_customers}</strong></span>
             <span>New customers <strong>${m.new_customers_count}</strong></span>
+            <span>New users (2+ orders) <strong>${(m.new_customers_2_plus || 0).toLocaleString()}</strong></span>
             <span>AOV <strong>${formatCurrency(m.aov)}</strong></span>
             <span>Engraving rate <strong>${m.engraving_rate}%</strong></span>
           </div>
@@ -899,6 +2183,7 @@
     function renderOrderFrequency(freq) {
       const data = freq || {};
       const summary = document.getElementById('frequency-summary');
+      if (!summary) return;
       const items = [
         { label: 'One-time customers', value: (data.one_time_customers || 0).toLocaleString() },
         { label: 'Power users (2+ orders)', value: (data.power_users_count || 0).toLocaleString() },
@@ -912,62 +2197,1181 @@
       ).join('');
     }
 
+    const segmentCategoryNames = {
+      '1 order': 'One-time buyers',
+      '2-5 orders': 'Repeat customers',
+      '6-20 orders': 'Loyal customers',
+      '20+ orders': 'Champions',
+    };
+
+    let powerDistributionSegments = [];
+
+    function showSegmentCustomerList(segmentIndex) {
+      const seg = powerDistributionSegments[segmentIndex];
+      if (!seg || !seg.customer_list) return;
+      const categoryName = segmentCategoryNames[seg.segment] || seg.segment;
+      const listSection = document.getElementById('segment-customer-list-section');
+      const cardsSection = document.getElementById('distribution-cards-section');
+      const titleEl = document.getElementById('segment-list-title');
+      const tbody = document.getElementById('segment-customer-list-body');
+      const sorted = [...seg.customer_list].sort((a, b) => (b.total_order_value || 0) - (a.total_order_value || 0));
+      titleEl.textContent = categoryName;
+      tbody.innerHTML = sorted.map(c => `
+        <tr>
+          <td>${escapeHtml(c.name || '')}${getSegmentBadgeHtml(seg.segment)}</td>
+          <td>${(c.orders || 0).toLocaleString()}</td>
+          <td>${formatCurrency(c.total_order_value || 0)}</td>
+        </tr>
+      `).join('');
+      const segmentTableWrap = listSection.querySelector('.segment-customer-table-wrap');
+      if (segmentTableWrap) enhanceTable(segmentTableWrap, { exportFilename: 'segment-customers.csv' });
+      cardsSection.style.display = 'none';
+      listSection.style.display = 'block';
+    }
+
+    function hideSegmentCustomerList() {
+      document.getElementById('segment-customer-list-section').style.display = 'none';
+      document.getElementById('distribution-cards-section').style.display = 'block';
+    }
+
     function renderPowerUserDistribution(payload) {
       const data = payload || {};
       const segments = data.segments || [];
-      const tableWrap = document.getElementById('power-distribution-table');
+      powerDistributionSegments = segments;
+      const cardsWrap = document.getElementById('power-distribution-cards');
       const noteEl = document.getElementById('power-distribution-note');
 
-      tableWrap.innerHTML = `
-        <div class="table-wrap">
-          <table class="customer-table">
-            <thead>
-              <tr>
-                <th>Segment</th>
-                <th>Customers</th>
-                <th>Revenue</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${segments.map(s => `
-                <tr>
-                  <td>${escapeHtml(s.segment)}</td>
-                  <td>${(s.customers || 0).toLocaleString()}</td>
-                  <td>${formatCurrency(s.revenue || 0)}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
+      cardsWrap.innerHTML = segments.map((s, idx) => {
+        const categoryName = segmentCategoryNames[s.segment] || s.segment;
+        const orderRange = (s.segment || '').toUpperCase();
+        return `
+        <div class="metric-card clickable" data-segment-index="${idx}" role="button" tabindex="0">
+          <div class="label segment-category">${escapeHtml(categoryName)}</div>
+          <div class="label segment-range">${escapeHtml(orderRange)}</div>
+          <div class="value segment-customers">${(s.customers || 0).toLocaleString()} customers</div>
+          <div class="sub segment-revenue">${formatCurrency(s.revenue || 0)}</div>
         </div>
       `;
+      }).join('');
 
-      const shareTxt = data.repeat_revenue_share_pct != null ? `${Number(data.repeat_revenue_share_pct).toFixed(2)}%` : 'N/A';
-      noteEl.textContent = `Repeat-user revenue share (2+ orders): ${shareTxt}`;
+      cardsWrap.querySelectorAll('.metric-card[data-segment-index]').forEach(card => {
+        card.addEventListener('click', () => showSegmentCustomerList(parseInt(card.getAttribute('data-segment-index'), 10)));
+        card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showSegmentCustomerList(parseInt(card.getAttribute('data-segment-index'), 10)); } });
+      });
 
-      const ctx = document.getElementById('chart-power-distribution').getContext('2d');
-      if (chartPowerDistribution) chartPowerDistribution.destroy();
-      chartPowerDistribution = new Chart(ctx, {
-        type: 'bar',
+      const backBtn = document.getElementById('segment-list-back');
+      if (backBtn) backBtn.onclick = hideSegmentCustomerList;
+
+      if (noteEl) noteEl.textContent = '';
+    }
+
+    function renderConcentration(concentration) {
+      const cardsEl = document.getElementById('concentration-cards');
+      const churnEl = document.getElementById('concentration-churn-cards');
+      const tbody = document.getElementById('concentration-top-body');
+      if (!cardsEl || !churnEl || !tbody) return;
+      const c = concentration || {};
+      const cards = [
+        { label: 'Top 1 account', value: formatCurrency(c.top_1_revenue || 0), sub: (c.top_1_pct != null ? c.top_1_pct + '% of revenue' : null), currency: true },
+        { label: 'Top 5 accounts', value: formatCurrency(c.top_5_revenue || 0), sub: (c.top_5_pct != null ? c.top_5_pct + '% of revenue' : null), currency: true },
+        { label: 'Top 10 accounts', value: formatCurrency(c.top_10_revenue || 0), sub: (c.top_10_pct != null ? c.top_10_pct + '% of revenue' : null), currency: true },
+        { label: 'Top 20 accounts', value: formatCurrency(c.top_20_revenue || 0), sub: (c.top_20_pct != null ? c.top_20_pct + '% of revenue' : null), currency: true },
+        { label: 'Customers for 80% of revenue', value: (c.customers_for_80_pct != null ? c.customers_for_80_pct : 0).toLocaleString(), sub: 'Core account count', currency: false },
+      ];
+      cardsEl.innerHTML = cards.map(({ label, value, sub, currency }) =>
+        `<div class="metric-card">
+          <div class="label">${escapeHtml(label)}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>${sub != null ? `<div class="sub">${escapeHtml(sub)}</div>` : ''}
+        </div>`
+      ).join('');
+      const churnCards = [
+        { label: 'If top 1 churns', value: formatCurrency(c.impact_if_top_1_churn || 0), sub: 'Revenue at risk', currency: true },
+        { label: 'Revenue left if top 1 churns', value: formatCurrency(c.revenue_if_top_1_churn || 0), sub: null, currency: true },
+        { label: 'If top 5 churn', value: formatCurrency(c.impact_if_top_5_churn || 0), sub: 'Revenue at risk', currency: true },
+        { label: 'Revenue left if top 5 churn', value: formatCurrency(c.revenue_if_top_5_churn || 0), sub: null, currency: true },
+      ];
+      churnEl.innerHTML = churnCards.map(({ label, value, sub, currency }) =>
+        `<div class="metric-card">
+          <div class="label">${escapeHtml(label)}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>${sub != null ? `<div class="sub">${escapeHtml(sub)}</div>` : ''}
+        </div>`
+      ).join('');
+      const rows = (c.top_accounts || []).map(a =>
+        `<tr>
+          <td>${(a.rank || 0).toLocaleString()}</td>
+          <td>${escapeHtml(a.name || '')}</td>
+          <td class="currency">${formatCurrency(a.revenue || 0)}</td>
+          <td>${(a.pct != null ? a.pct : 0).toFixed(1)}%</td>
+        </tr>`
+      ).join('');
+      tbody.innerHTML = rows || '<tr><td colspan="4">No data</td></tr>';
+    }
+
+    function renderForecast(forecast) {
+      const paceEl = document.getElementById('forecast-pace-cards');
+      const runrateEl = document.getElementById('forecast-runrate-cards');
+      const forecastEl = document.getElementById('forecast-forecast-cards');
+      const noteEl = document.getElementById('forecast-note');
+      if (!paceEl || !runrateEl || !forecastEl) return;
+      const f = forecast || {};
+      const profitPct30 = f.profit_margin_30d_pct != null ? ' (' + f.profit_margin_30d_pct.toFixed(1) + '% margin)' : '';
+      const profitPct90 = f.profit_margin_90d_pct != null ? ' (' + f.profit_margin_90d_pct.toFixed(1) + '% margin)' : '';
+      const paceCards = [
+        { label: 'Last 30 days revenue', value: formatCurrency(f.last_30d_revenue || 0), sub: 'Current pace', currency: true },
+        { label: 'Last 30 days profit', value: formatCurrency(f.last_30d_profit || 0), sub: 'Revenue − COGS' + profitPct30, currency: true },
+        { label: 'Last 90 days revenue', value: formatCurrency(f.last_90d_revenue || 0), sub: 'Quarter pace', currency: true },
+        { label: 'Last 90 days profit', value: formatCurrency(f.last_90d_profit || 0), sub: 'Revenue − COGS' + profitPct90, currency: true },
+        { label: 'Last 12 months', value: formatCurrency(f.last_12m_revenue || 0), sub: 'Trailing 12M revenue', currency: true },
+        { label: '90-day growth', value: f.growth_90d_pct != null ? (f.growth_90d_pct >= 0 ? '+' : '') + f.growth_90d_pct.toFixed(1) + '%' : 'N/A', sub: 'vs previous 90 days', currency: false },
+      ];
+      paceEl.innerHTML = paceCards.map(({ label, value, sub, currency }) =>
+        `<div class="metric-card">
+          <div class="label">${escapeHtml(label)}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>${sub != null ? `<div class="sub">${escapeHtml(sub)}</div>` : ''}
+        </div>`
+      ).join('');
+      const runrateCards = [
+        { label: 'Revenue run rate (30d × 12)', value: f.run_rate_30d != null ? formatCurrency(f.run_rate_30d) : '—', sub: 'If last 30 days continued', currency: true },
+        { label: 'Profit run rate (30d × 12)', value: f.profit_run_rate_30d != null ? formatCurrency(f.profit_run_rate_30d) : '—', sub: 'Annualized profit at current pace', currency: true },
+        { label: 'Revenue run rate (90d × 4)', value: f.run_rate_90d != null ? formatCurrency(f.run_rate_90d) : '—', sub: 'If last 90 days continued', currency: true },
+        { label: 'Profit run rate (90d × 4)', value: f.profit_run_rate_90d != null ? formatCurrency(f.profit_run_rate_90d) : '—', sub: 'Annualized profit at quarter pace', currency: true },
+      ];
+      runrateEl.innerHTML = runrateCards.map(({ label, value, sub, currency }) =>
+        `<div class="metric-card">
+          <div class="label">${escapeHtml(label)}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>${sub != null ? `<div class="sub">${escapeHtml(sub)}</div>` : ''}
+        </div>`
+      ).join('');
+      const forecastCards = [
+        { label: 'Next 30 days (naive)', value: formatCurrency(f.forecast_next_30d_naive || 0), sub: 'Same as last 30 days', currency: true },
+        { label: 'Next 30 days (trend)', value: formatCurrency(f.forecast_next_30d_trend || 0), sub: 'With 90d growth applied', currency: true },
+        { label: 'Next 90 days (naive)', value: formatCurrency(f.forecast_next_90d_naive || 0), sub: 'Same as last 90 days', currency: true },
+        { label: 'Next 90 days (trend)', value: formatCurrency(f.forecast_next_90d_trend || 0), sub: 'With 90d growth applied', currency: true },
+      ];
+      forecastEl.innerHTML = forecastCards.map(({ label, value, sub, currency }) =>
+        `<div class="metric-card">
+          <div class="label">${escapeHtml(label)}</div>
+          <div class="value ${currency ? 'currency' : ''}">${value}</div>${sub != null ? `<div class="sub">${escapeHtml(sub)}</div>` : ''}
+        </div>`
+      ).join('');
+      const daysCount = f.days_of_data != null ? f.days_of_data : 0;
+      if (noteEl) noteEl.textContent = daysCount >= 90 ? 'Trend forecast uses growth of last 90 days vs previous 90 days. Naive assumes next period equals last period.' : (daysCount >= 30 ? 'Trend forecast needs 90+ days of data; showing naive only for trend until then.' : 'More daily data improves run rate and trend forecast.');
+
+      // Build rolling 30-day and 90-day revenue series from dailySalesData
+      const dailyDays = (dailySalesData && dailySalesData.days) || [];
+      const dailyRevenues = (dailySalesData && dailySalesData.revenues) || [];
+      const n = dailyDays.length;
+      if (n < 7) return;
+
+      // Rolling sums
+      const rolling30 = [];
+      const rolling90 = [];
+      const rollingLabels = [];
+      for (let i = 0; i < n; i++) {
+        rollingLabels.push(dailyDays[i]);
+        let sum30 = 0;
+        for (let j = Math.max(0, i - 29); j <= i; j++) sum30 += dailyRevenues[j];
+        rolling30.push(Math.round(sum30 * 100) / 100);
+        let sum90 = 0;
+        for (let j = Math.max(0, i - 89); j <= i; j++) sum90 += dailyRevenues[j];
+        rolling90.push(Math.round(sum90 * 100) / 100);
+      }
+
+      // Monthly revenue as bars (aligned to first day of each month)
+      const monthMap = {};
+      for (let i = 0; i < n; i++) {
+        const mKey = dailyDays[i].slice(0, 7);
+        if (!monthMap[mKey]) monthMap[mKey] = 0;
+        monthMap[mKey] += dailyRevenues[i];
+      }
+      const monthlyBarData = rollingLabels.map(d => {
+        const mKey = d.slice(0, 7);
+        const isFirst = d.slice(8, 10) === '01';
+        return isFirst ? Math.round((monthMap[mKey] || 0) * 100) / 100 : null;
+      });
+
+      const ctxRoll = document.getElementById('chart-forecast-rolling');
+      if (!ctxRoll) return;
+      if (chartForecastRolling) chartForecastRolling.destroy();
+      chartForecastRolling = new Chart(ctxRoll.getContext('2d'), {
+        type: 'line',
         data: {
-          labels: segments.map(s => s.segment),
-          datasets: [{
-            label: 'Revenue',
-            data: segments.map(s => s.revenue || 0),
-            backgroundColor: 'rgba(59, 130, 246, 0.65)',
-            borderColor: 'rgb(59, 130, 246)',
-            borderWidth: 1,
-          }],
+          labels: rollingLabels,
+          datasets: [
+            {
+              label: 'Rolling 30-day',
+              data: rolling30,
+              borderColor: 'rgb(59, 130, 246)',
+              backgroundColor: 'rgba(59, 130, 246, 0.08)',
+              fill: false,
+              tension: 0.3,
+              pointRadius: 0,
+              borderWidth: 2,
+            },
+            {
+              label: 'Rolling 90-day',
+              data: rolling90,
+              borderColor: 'rgb(168, 85, 247)',
+              backgroundColor: 'rgba(168, 85, 247, 0.08)',
+              fill: false,
+              tension: 0.3,
+              pointRadius: 0,
+              borderWidth: 2,
+            },
+            {
+              label: 'Monthly revenue',
+              data: monthlyBarData,
+              type: 'bar',
+              backgroundColor: 'rgba(34, 197, 94, 0.25)',
+              borderColor: 'rgb(34, 197, 94)',
+              borderWidth: 1,
+              barPercentage: 1.0,
+              categoryPercentage: 1.0,
+              yAxisID: 'y',
+            },
+          ],
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: '#8b9cb3', usePointStyle: true, padding: 16 } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  if (ctx.raw == null) return null;
+                  return ctx.dataset.label + ': $' + Number(ctx.raw).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                },
+              },
+            },
+          },
           scales: {
-            x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#8b9cb3' } },
-            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#8b9cb3', callback: v => '$' + (v / 1000) + 'k' } },
+            x: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: {
+                color: '#8b9cb3',
+                maxTicksLimit: 12,
+                maxRotation: 45,
+                callback: function(val, idx) { const lbl = rollingLabels[idx]; return lbl ? lbl.slice(0, 7) : ''; },
+              },
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: { color: '#8b9cb3', callback: v => '$' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v) },
+            },
           },
         },
       });
+    }
+
+    const BILL_ORDER_LINKS_KEY = 'metrics_bill_order_links';
+
+    function getBillOrderLinks() {
+      try {
+        const raw = localStorage.getItem(BILL_ORDER_LINKS_KEY);
+        if (!raw) return {};
+        const o = JSON.parse(raw);
+        return typeof o === 'object' && o !== null ? o : {};
+      } catch (_) { return {}; }
+    }
+
+    function setBillOrderLinks(links) {
+      try {
+        localStorage.setItem(BILL_ORDER_LINKS_KEY, JSON.stringify(links));
+      } catch (_) {}
+    }
+
+    const MANUAL_BILLS_KEY = 'metrics_manual_bills';
+
+    function getManualBills() {
+      try {
+        const raw = localStorage.getItem(MANUAL_BILLS_KEY);
+        if (!raw) return {};
+        const o = JSON.parse(raw);
+        return typeof o === 'object' && o !== null ? o : {};
+      } catch (_) { return {}; }
+    }
+
+    function setManualBills(bills) {
+      try {
+        localStorage.setItem(MANUAL_BILLS_KEY, JSON.stringify(bills));
+      } catch (_) {}
+    }
+
+    /** Orders that share a bill are in the same group. Returns map: orderId -> groupKey (sorted comma-separated ids). Standalone orders are not in the map. */
+    function getCombinedOrderGroups() {
+      const links = getBillOrderLinks();
+      const orderToNeighbors = {};
+      for (const billId of Object.keys(links)) {
+        const orderIds = links[billId];
+        if (!Array.isArray(orderIds) || orderIds.length < 2) continue;
+        for (const oid of orderIds) {
+          const k = String(oid);
+          if (!orderToNeighbors[k]) orderToNeighbors[k] = new Set();
+          orderIds.forEach(o => { if (String(o) !== k) orderToNeighbors[k].add(String(o)); });
+        }
+      }
+      const visited = {};
+      const orderToGroupKey = {};
+      function visit(oid) {
+        if (orderToGroupKey[oid]) return orderToGroupKey[oid];
+        const component = new Set();
+        const stack = [oid];
+        while (stack.length) {
+          const cur = stack.pop();
+          const c = String(cur);
+          if (component.has(c)) continue;
+          component.add(c);
+          const neighbors = orderToNeighbors[c];
+          if (neighbors) neighbors.forEach(n => { if (!component.has(n)) stack.push(n); });
+        }
+        const key = [...component].sort((a, b) => Number(a) - Number(b)).join(',');
+        component.forEach(o => { orderToGroupKey[o] = key; });
+        return key;
+      }
+      for (const oid of Object.keys(orderToNeighbors)) {
+        if (!orderToGroupKey[oid]) visit(oid);
+      }
+      return orderToGroupKey;
+    }
+
+    /** From a filtered+sorted list of orders, build display items: combined orders (same bill group) as one item, others as single. Returns [{ orderIds, orders }]. */
+    function buildSalesDisplayItems(orderList) {
+      const groups = getCombinedOrderGroups();
+      const byKey = {};
+      for (const order of orderList) {
+        const oid = String(order.id);
+        const key = groups[oid] || oid;
+        if (!byKey[key]) byKey[key] = { orderIds: [], orders: [] };
+        if (!byKey[key].orderIds.includes(order.id)) {
+          byKey[key].orderIds.push(order.id);
+          byKey[key].orders.push(order);
+        }
+      }
+      const items = Object.values(byKey);
+      for (const item of items) {
+        item.orderIds.sort((a, b) => Number(a) - Number(b));
+        item.orders.sort((a, b) => (a.id === b.id ? 0 : (a.id < b.id ? -1 : 1)));
+      }
+      return items;
+    }
+
+    /** Merge API order_bills with user-defined bill→orders links. Returns { order_bills, unique_total_bill_amount }. */
+    function mergeBillOrderLinks(billsData) {
+      const orderBills = (billsData && billsData.order_bills) || {};
+      const links = getBillOrderLinks();
+      const manualBills = getManualBills();
+      const allBillsById = {};
+      for (const oid of Object.keys(orderBills)) {
+        for (const b of orderBills[oid] || []) {
+          if (b && b.id != null) allBillsById[String(b.id)] = b;
+        }
+      }
+      for (const manualId of Object.keys(manualBills)) {
+        const m = manualBills[manualId];
+        if (!m || m.ref == null) continue;
+        allBillsById[String(manualId)] = {
+          id: manualId,
+          name: m.ref,
+          ref: m.ref,
+          amount_total: Number(m.amount) || 0,
+          vendor: 'Manual',
+          state: 'manual',
+          invoice_date: '',
+        };
+      }
+      const merged = {};
+      for (const oid of Object.keys(orderBills)) {
+        merged[oid] = [...(orderBills[oid] || [])];
+      }
+      for (const billId of Object.keys(links)) {
+        const orderIds = links[billId];
+        if (!Array.isArray(orderIds) || !allBillsById[billId]) continue;
+        const bill = allBillsById[billId];
+        for (const oid of orderIds) {
+          const key = String(oid);
+          if (!merged[key]) merged[key] = [];
+          if (merged[key].some(b => String(b.id) === String(bill.id))) continue;
+          merged[key].push(bill);
+        }
+      }
+      const uniqueBillIds = new Set();
+      for (const arr of Object.values(merged)) {
+        for (const b of arr) if (b && b.id != null) uniqueBillIds.add(b.id);
+      }
+      let uniqueTotal = 0;
+      for (const bid of uniqueBillIds) {
+        const b = allBillsById[String(bid)];
+        if (b) uniqueTotal += Number(b.amount_total) || 0;
+      }
+      return {
+        order_bills: merged,
+        unique_total_bill_amount: Math.round(uniqueTotal * 100) / 100,
+      };
+    }
+
+    /** For bills linked to multiple orders, return allocated amount per order: { orderId: { billId: amount } }. Amounts are proportional to order total so combined sales match the joint bill. */
+    function getCombinedBillAllocations() {
+      const links = getBillOrderLinks();
+      const allocation = {};
+      for (const billId of Object.keys(links)) {
+        const orderIds = links[billId];
+        if (!Array.isArray(orderIds) || orderIds.length <= 1) continue;
+        const orderTotals = orderIds.map(oid => {
+          const o = salesListAll.find(x => x.id === oid || x.id === Number(oid));
+          return { oid, total: Number(o && o.total) || 0 };
+        });
+        const sumTotals = orderTotals.reduce((s, x) => s + x.total, 0);
+        const bill = orderIds.map(oid => (salesBillsByOrderId[oid] || []).find(b => b.id == billId)).find(Boolean);
+        const billAmount = bill ? (Number(bill.amount_total) || 0) : 0;
+        if (billAmount === 0) continue;
+        const divisor = sumTotals > 0 ? sumTotals : orderIds.length;
+        orderTotals.forEach(({ oid }, i) => {
+          const key = String(oid);
+          if (!allocation[key]) allocation[key] = {};
+          allocation[key][String(billId)] = sumTotals > 0
+            ? Math.round((orderTotals[i].total / divisor) * billAmount * 100) / 100
+            : Math.round((billAmount / orderIds.length) * 100) / 100;
+        });
+      }
+      return allocation;
+    }
+
+    function getAllocatedBillsTotalForOrder(orderId, bills) {
+      if (!bills.length) return 0;
+      const allocation = getCombinedBillAllocations();
+      const orderAlloc = allocation[String(orderId)] || {};
+      return bills.reduce((sum, b) => {
+        const amt = orderAlloc[String(b.id)];
+        return sum + (amt != null ? amt : (Number(b.amount_total) || 0));
+      }, 0);
+    }
+
+    let salesListAll = [];
+    let salesBillsByOrderId = {};
+    let salesFilterNoBillsOnly = false;
+    let lastBillsData = null;
+    let lastMaster = null;
+    let dailySalesData = { days: [], revenues: [], cumulative: [], daily_bills: [], cumulative_bills: [] };
+
+    function getSalesPeriodCutoff(periodKey) {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      if (periodKey === 'all') return null;
+      if (periodKey === 'year') return `${today.getFullYear()}-01-01`;
+      if (periodKey === 'month') return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-01`;
+      if (periodKey === '3months') {
+        const d = new Date(today);
+        d.setMonth(d.getMonth() - 3);
+        return d.toISOString().slice(0, 10);
+      }
+      if (periodKey === '30days') {
+        const d = new Date(today);
+        d.setDate(d.getDate() - 30);
+        return d.toISOString().slice(0, 10);
+      }
+      if (periodKey === '7days') {
+        const d = new Date(today);
+        d.setDate(d.getDate() - 7);
+        return d.toISOString().slice(0, 10);
+      }
+      return null;
+    }
+
+    function getWeekKey(dateStr) {
+      const d = new Date(dateStr + 'T12:00:00');
+      const day = d.getDay();
+      const daysBack = day === 0 ? 6 : day - 1;
+      d.setDate(d.getDate() - daysBack);
+      return d.toISOString().slice(0, 10);
+    }
+
+    function formatWeekLabel(weekKey) {
+      const d = new Date(weekKey + 'T12:00:00');
+      const end = new Date(d);
+      end.setDate(end.getDate() + 6);
+      const opts = { month: 'short', day: 'numeric', year: 'numeric' };
+      return `Week of ${d.toLocaleDateString('en-US', opts)}`;
+    }
+
+    function aggregateSalesByPeriod(orders, groupBy) {
+      const map = {};
+      for (const o of orders) {
+        const dateStr = toLocalDateISO(o.date);
+        if (!dateStr) continue;
+        let key, label;
+        if (groupBy === 'day') {
+          key = dateStr;
+          label = dateStr;
+        } else if (groupBy === 'week') {
+          key = getWeekKey(dateStr);
+          label = formatWeekLabel(key);
+        } else if (groupBy === 'month') {
+          key = dateStr.slice(0, 7);
+          const [y, m] = key.split('-');
+          const d = new Date(parseInt(y, 10), parseInt(m, 10) - 1, 1);
+          label = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        } else {
+          key = dateStr.slice(0, 4);
+          label = key;
+        }
+        if (!map[key]) map[key] = { periodKey: key, periodLabel: label, orders: 0, revenue: 0 };
+        map[key].orders += 1;
+        map[key].revenue += o.total || 0;
+      }
+      if (groupBy === 'day') {
+        const keys = Object.keys(map).sort();
+        if (keys.length >= 2) {
+          const start = new Date(keys[0] + 'T12:00:00');
+          const end = new Date(keys[keys.length - 1] + 'T12:00:00');
+          for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+            const k = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            if (!map[k]) map[k] = { periodKey: k, periodLabel: k, orders: 0, revenue: 0 };
+          }
+        }
+      }
+      const arr = Object.values(map);
+      arr.sort((a, b) => (a.periodKey > b.periodKey ? -1 : a.periodKey < b.periodKey ? 1 : 0));
+      return arr;
+    }
+
+    function getSalesFilteredAndSorted() {
+      const periodKey = (document.getElementById('sales-period') && document.getElementById('sales-period').value) || 'all';
+      const viewKey = (document.getElementById('sales-view') && document.getElementById('sales-view').value) || 'orders';
+      const q = (document.getElementById('sales-search') && document.getElementById('sales-search').value) ? document.getElementById('sales-search').value.trim().toLowerCase() : '';
+      const billFilter = (document.getElementById('sales-bill-filter') && document.getElementById('sales-bill-filter').value) || 'all';
+      const sortVal = document.getElementById('sales-sort') ? document.getElementById('sales-sort').value : 'date_desc';
+
+      let list = salesListAll;
+      const cutoff = getSalesPeriodCutoff(periodKey);
+      if (cutoff) list = list.filter(order => toLocalDateISO(order.date) >= cutoff);
+      list = list.filter(order => {
+        if (!q) return true;
+        const matchOrder = String(order.id).toLowerCase().includes(q) || (order.name || '').toLowerCase().includes(q);
+        const matchCustomer = (order.customer || '').toLowerCase().includes(q);
+        return matchOrder || matchCustomer;
+      });
+      if (billFilter === 'no_bill' || salesFilterNoBillsOnly) list = list.filter(order => !(salesBillsByOrderId[order.id]?.length));
+      else if (billFilter === 'with_bill') list = list.filter(order => (salesBillsByOrderId[order.id]?.length));
+
+      if (viewKey !== 'orders') {
+        return { view: viewKey, aggregated: aggregateSalesByPeriod(list, viewKey) };
+      }
+      const a = sortVal === 'date_asc' || sortVal === 'total_asc' || sortVal === 'customer_asc' ? 1 : -1;
+      if (sortVal.startsWith('date')) {
+        list = [...list].sort((x, y) => (x.date === y.date ? 0 : (x.date < y.date ? -1 : 1)) * a);
+      } else if (sortVal.startsWith('total')) {
+        list = [...list].sort((x, y) => ((x.total || 0) - (y.total || 0)) * a);
+      } else if (sortVal.startsWith('customer')) {
+        list = [...list].sort((x, y) => (String(x.customer || '').localeCompare(String(y.customer || ''))) * a);
+      }
+      return { view: 'orders', list };
+    }
+
+    function renderSalesTable(result) {
+      const subtitle = document.getElementById('sales-subtitle');
+      const wrap = document.getElementById('sales-table-wrap');
+      const total = salesListAll.length;
+      const view = result.view || 'orders';
+
+      if (view === 'orders') {
+        const list = result.list || [];
+        const billFilterVal = (document.getElementById('sales-bill-filter') && document.getElementById('sales-bill-filter').value) || 'all';
+        const chipEl = document.getElementById('sales-filter-chip');
+        if (chipEl) {
+          if (billFilterVal === 'no_bill' || salesFilterNoBillsOnly) {
+            chipEl.style.display = 'block';
+            chipEl.innerHTML = '<span class="sales-filter-chip-label">Showing orders without bills</span> <button type="button" class="bill-link-btn sales-filter-clear" id="sales-filter-clear">Clear</button>';
+            const clearBtn = document.getElementById('sales-filter-clear');
+            if (clearBtn) clearBtn.onclick = () => { salesFilterNoBillsOnly = false; const sel = document.getElementById('sales-bill-filter'); if (sel) sel.value = 'all'; renderSalesTable(getSalesFilteredAndSorted()); };
+          } else {
+            chipEl.style.display = 'none';
+            chipEl.innerHTML = '';
+          }
+        }
+        const items = buildSalesDisplayItems(list);
+        const sortVal = document.getElementById('sales-sort') ? document.getElementById('sales-sort').value : 'date_desc';
+        const sortDir = sortVal === 'date_asc' || sortVal === 'total_asc' || sortVal === 'customer_asc' ? 1 : -1;
+        if (sortVal.startsWith('date')) {
+          items.sort((x, y) => {
+            const dx = Math.min(...x.orders.map(o => new Date(o.date || 0).getTime()));
+            const dy = Math.min(...y.orders.map(o => new Date(o.date || 0).getTime()));
+            return (dx === dy ? 0 : dx < dy ? -1 : 1) * sortDir;
+          });
+        } else if (sortVal.startsWith('total')) {
+          items.sort((x, y) => {
+            const tx = x.orders.reduce((s, o) => s + (Number(o.total) || 0), 0);
+            const ty = y.orders.reduce((s, o) => s + (Number(o.total) || 0), 0);
+            return (tx - ty) * sortDir;
+          });
+        } else if (sortVal.startsWith('customer')) {
+          items.sort((x, y) => {
+            const cx = x.orders.length > 1 ? 'Multiple' : (x.orders[0].customer || '');
+            const cy = y.orders.length > 1 ? 'Multiple' : (y.orders[0].customer || '');
+            return String(cx).localeCompare(String(cy)) * sortDir;
+          });
+        }
+
+        subtitle.textContent = list.length === total
+          ? total.toLocaleString() + ' orders'
+          : list.length.toLocaleString() + ' of ' + total.toLocaleString() + ' orders';
+
+        if (!items.length) {
+          wrap.innerHTML = '<div class="customer-card"><div class="detail">No sales match.</div></div>';
+          return;
+        }
+
+        const links = getBillOrderLinks();
+        const rows = items.map(item => {
+          const orders = item.orders;
+          const orderIds = item.orderIds;
+          const combinedTotal = Math.round(orders.reduce((s, o) => s + (Number(o.total) || 0), 0) * 100) / 100;
+          const allBills = [];
+          const seenBillIds = new Set();
+          for (const o of orders) {
+            for (const b of (salesBillsByOrderId[o.id] || [])) {
+              if (b && b.id != null && !seenBillIds.has(String(b.id))) {
+                seenBillIds.add(String(b.id));
+                allBills.push(b);
+              }
+            }
+          }
+          const billsTotal = Math.round(allBills.reduce((s, b) => s + (Number(b.amount_total) || 0), 0) * 100) / 100;
+          const margin = combinedTotal - billsTotal;
+          const hasBill = allBills.length > 0;
+          const hasManualBill = allBills.some(b => String(b.id).startsWith('manual-'));
+          const firstOrder = orders[0];
+          const orderDate = firstOrder.date ? new Date(firstOrder.date) : null;
+          const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+          const isOverWeekOld = orderDate && orderDate.getTime() < weekAgo;
+          let billBadgeHtml = '';
+          if (!hasBill) {
+            billBadgeHtml = isOverWeekOld
+              ? '<span class="bill-alert" title="No vendor bill linked and order is over a week old">Missing bill</span>'
+              : '<span class="bill-note" title="No vendor bill linked yet">No bill</span>';
+          } else if (hasManualBill) {
+            billBadgeHtml = '<span class="bill-note" title="Manually entered bill">Manual bill</span>';
+          }
+          const orderLabel = orders.length > 1
+            ? orders.map(o => (o.name || ('#' + o.id))).join(', ')
+            : (firstOrder.name || ('#' + firstOrder.id));
+          const dateLabel = orders.length > 1
+            ? (() => { const ds = [...orders].sort((a, b) => (a.date || '').localeCompare(b.date || '')); return formatLocalDate(ds[0].date) + ' … ' + formatLocalDate(ds[ds.length - 1].date); })()
+            : formatLocalDate(firstOrder.date);
+          const customerLabel = orders.length > 1 ? 'Multiple' : (firstOrder.customer || '');
+          const combinedLines = orders.flatMap(o => (o.lines || []).map(l => ({ ...l, soId: o.id, soName: o.name || ('#' + o.id) })));
+          const linesBlock = combinedLines.length
+            ? `<div class="sales-order-detail"><strong>Products</strong>
+                <table>
+                  <thead><tr><th>Product</th><th>Order</th><th>Qty</th><th>Line total</th></tr></thead>
+                  <tbody>
+                    ${combinedLines.map(l => `
+                      <tr>
+                        <td>${escapeHtml(l.product_name)}</td>
+                        <td>${escapeHtml(l.soName)}</td>
+                        <td>${Number(l.qty).toLocaleString()}</td>
+                        <td>${l.subtotal != null ? formatCurrency(l.subtotal) : '—'}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>`
+            : '<div class="sales-order-detail"><div class="detail">No line items.</div></div>';
+          const itemOrderIdSet = new Set(orderIds.map(String));
+          const billsBlock = allBills.length
+            ? `<div class="sales-order-detail" style="margin-top: 0.75rem;"><strong>Attached bills</strong>
+                <table>
+                  <thead><tr><th>Bill</th><th>Vendor</th><th>Amount</th><th>Date</th><th>State</th><th>Combined orders</th></tr></thead>
+                  <tbody>
+                    ${allBills.map(b => {
+                      const linkOrderIds = links[String(b.id)] || [];
+                      const otherOrderIds = linkOrderIds.filter(oid => !itemOrderIdSet.has(String(oid)));
+                      const isManual = String(b.id).startsWith('manual-');
+                      const alsoOnHtml = otherOrderIds.length
+                        ? `<span class="bill-also-on">Also on: ${otherOrderIds.map(oid => { const o = salesListAll.find(x => x.id === oid || x.id === Number(oid)); const label = (o && o.name) ? o.name : ('#' + oid); return `${escapeHtml(label)}<a href="#" class="bill-unlink" data-bill-id="${b.id}" data-remove-order-id="${oid}" data-current-order-id="${orderIds[0]}" aria-label="Remove ${label}">×</a>`; }).join(', ')}</span>`
+                        : '';
+                      const removeManualHtml = isManual ? `<a href="#" class="bill-unlink bill-remove-manual" data-bill-id="${b.id}" data-remove-order-ids="${orderIds.join(',')}" aria-label="Remove this manual bill">Remove</a>` : '';
+                      return `<tr>
+                        <td>${escapeHtml(b.ref || b.name || '')}</td>
+                        <td>${escapeHtml(b.vendor || '')}</td>
+                        <td>${formatCurrency(b.amount_total || 0)}</td>
+                        <td>${escapeHtml(b.invoice_date || '')}</td>
+                        <td>${escapeHtml(b.state || '')}</td>
+                        <td><div class="bill-link-row-actions">${alsoOnHtml}${removeManualHtml}<button type="button" class="bill-link-btn" data-action="link-bill" data-bill-id="${b.id}" data-order-id="${orderIds[0]}">Link to more orders</button></div></td>
+                      </tr>`;
+                    }).join('')}
+                  </tbody>
+                </table>
+                <div class="sales-detail-summary" style="margin-top: 0.5rem; font-size: 0.9rem;">
+                  <strong>Bill amount:</strong> ${formatCurrency(billsTotal)} &nbsp;·&nbsp; <strong>Margin:</strong> ${formatCurrency(margin)}${combinedTotal > 0 ? ' (' + (margin / combinedTotal * 100).toFixed(1) + '%)' : ''}
+                </div>
+                <button type="button" class="bill-link-btn" data-action="add-manual-bill" data-order-id="${orderIds[0]}" style="margin-top: 0.5rem;">Add manual bill</button>
+              </div>`
+            : `<div class="sales-order-detail" style="margin-top: 0.75rem;"><strong>Attached bills</strong><div class="detail">No vendor bills linked.</div><button type="button" class="bill-link-btn" data-action="add-manual-bill" data-order-id="${orderIds[0]}">Add manual bill</button><div class="sales-detail-summary" style="margin-top: 0.5rem; font-size: 0.9rem;"><strong>Bill amount:</strong> — &nbsp;·&nbsp; <strong>Margin:</strong> —</div></div>`;
+          const linesHtml = linesBlock + billsBlock;
+          const marginPct = combinedTotal > 0 ? (margin / combinedTotal * 100).toFixed(1) + '%' : '';
+          const marginCell = !hasBill ? ' -- ' : formatCurrency(margin) + (marginPct ? ' (' + marginPct + ')' : '');
+          const detailId = 'sales-detail-' + orderIds.join('-');
+          return `
+          <tr class="order-row" data-order-ids="${orderIds.join(',')}" aria-expanded="false">
+            <td>${orderLabel}${billBadgeHtml}</td>
+            <td>${escapeHtml(dateLabel)}</td>
+            <td>${escapeHtml(customerLabel)}${orders.length === 1 ? getSegmentBadgeHtml(firstOrder.customer_segment) : ''}</td>
+            <td>${formatCurrency(combinedTotal)}</td>
+            <td>${marginCell}</td>
+          </tr>
+          <tr class="order-detail-row" id="${detailId}" style="display: none;"><td colspan="5">${linesHtml}</td></tr>
+        `;
+      }).join('');
+
+      wrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="customer-table sales-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Order value</th>
+                <th>Margin</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+
+      wrap.querySelectorAll('.order-row').forEach(row => {
+        row.addEventListener('click', () => {
+          const ids = row.getAttribute('data-order-ids') || '';
+          const detailId = 'sales-detail-' + ids.split(',').join('-');
+          const detail = document.getElementById(detailId);
+          const isExpanded = row.getAttribute('aria-expanded') === 'true';
+          wrap.querySelectorAll('.order-row').forEach(r => r.classList.remove('expanded'));
+          wrap.querySelectorAll('.order-detail-row').forEach(r => { r.style.display = 'none'; });
+          wrap.querySelectorAll('.order-row').forEach(r => r.setAttribute('aria-expanded', 'false'));
+          if (!isExpanded) {
+            row.classList.add('expanded');
+            if (detail) detail.style.display = 'table-row';
+            row.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+      enhanceTable(wrap, { exportFilename: 'sales.csv' });
+        return;
+      }
+
+      const aggregated = result.aggregated || [];
+      const viewLabels = { day: 'By day', week: 'By week', month: 'By month', year: 'By year' };
+      subtitle.textContent = aggregated.length
+        ? `${viewLabels[view]} · ${aggregated.length} period${aggregated.length !== 1 ? 's' : ''}`
+        : 'No sales in this period.';
+
+      if (!aggregated.length) {
+        wrap.innerHTML = '<div class="customer-card"><div class="detail">No sales in this period.</div></div>';
+        return;
+      }
+
+      const summaryRows = aggregated.map(p => `
+        <tr>
+          <td>${escapeHtml(p.periodLabel)}</td>
+          <td>${(p.orders || 0).toLocaleString()}</td>
+          <td>${formatCurrency(p.revenue || 0)}</td>
+        </tr>
+      `).join('');
+
+      wrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="customer-table sales-table sales-summary-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th># Orders</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>${summaryRows}</tbody>
+          </table>
+        </div>
+      `;
+      enhanceTable(wrap, { exportFilename: 'sales-summary.csv' });
+    }
+
+    function refreshSalesFromBillLinks() {
+      if (!lastBillsData || !lastMaster) return;
+      const merged = mergeBillOrderLinks(lastBillsData);
+      const mergedBills = {
+        ...lastBillsData,
+        order_bills: merged.order_bills,
+        summary: { ...(lastBillsData.summary || {}), total_bill_amount: merged.unique_total_bill_amount },
+      };
+      salesBillsByOrderId = merged.order_bills;
+      renderSalesTable(getSalesFilteredAndSorted());
+      renderSalesOverviewCards(lastMaster, mergedBills);
+    }
+
+    function openLinkBillModal(billId, currentOrderId) {
+      const modal = document.getElementById('link-bill-modal');
+      const listEl = document.getElementById('link-bill-order-list');
+      if (!modal || !listEl) return;
+      const links = getBillOrderLinks();
+      const currentLinked = links[String(billId)] || [];
+      const otherOrders = salesListAll.filter(o => o.id !== currentOrderId);
+      listEl.innerHTML = otherOrders.map(o => {
+        const checked = currentLinked.indexOf(o.id) >= 0 ? ' checked' : '';
+        return `<label><input type="checkbox" value="${o.id}"${checked}> ${escapeHtml(o.name || ('#' + o.id))} · ${escapeHtml(formatLocalDate(o.date))} · ${escapeHtml((o.customer || '').slice(0, 30))}</label>`;
+      }).join('');
+      modal.dataset.billId = String(billId);
+      modal.dataset.orderId = String(currentOrderId);
+      modal.style.display = 'flex';
+    }
+
+    function closeLinkBillModal() {
+      const modal = document.getElementById('link-bill-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function openManualBillModal(orderId) {
+      const modal = document.getElementById('manual-bill-modal');
+      const refEl = document.getElementById('manual-bill-ref');
+      const amountEl = document.getElementById('manual-bill-amount');
+      if (!modal || !refEl || !amountEl) return;
+      refEl.value = '';
+      amountEl.value = '';
+      modal.dataset.orderId = String(orderId);
+      modal.style.display = 'flex';
+      refEl.focus();
+    }
+
+    function closeManualBillModal() {
+      const modal = document.getElementById('manual-bill-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function saveManualBillModal() {
+      const modal = document.getElementById('manual-bill-modal');
+      if (!modal || modal.style.display === 'none') return;
+      const orderId = parseInt(modal.dataset.orderId, 10);
+      const refEl = document.getElementById('manual-bill-ref');
+      const amountEl = document.getElementById('manual-bill-amount');
+      const ref = (refEl && refEl.value || '').trim();
+      const amount = amountEl ? parseFloat(amountEl.value) : NaN;
+      if (!ref) { if (refEl) refEl.focus(); return; }
+      if (!Number.isFinite(amount) || amount < 0) { if (amountEl) amountEl.focus(); return; }
+      const id = 'manual-' + Date.now() + '-' + Math.random().toString(36).slice(2, 9);
+      const manual = getManualBills();
+      manual[id] = { ref, amount: Math.round(amount * 100) / 100 };
+      setManualBills(manual);
+      const links = getBillOrderLinks();
+      links[id] = [orderId];
+      setBillOrderLinks(links);
+      closeManualBillModal();
+      refreshSalesFromBillLinks();
+    }
+
+    function saveLinkBillModal() {
+      const modal = document.getElementById('link-bill-modal');
+      if (!modal || modal.style.display === 'none') return;
+      const billId = modal.dataset.billId;
+      const currentOrderId = parseInt(modal.dataset.orderId, 10);
+      const links = getBillOrderLinks();
+      const currentLinked = links[billId] || [];
+      const selected = Array.from(modal.querySelectorAll('#link-bill-order-list input:checked')).map(cb => parseInt(cb.value, 10));
+      const newSet = new Set([currentOrderId, ...currentLinked.filter(id => id !== currentOrderId), ...selected]);
+      links[billId] = Array.from(newSet);
+      setBillOrderLinks(links);
+      closeLinkBillModal();
+      refreshSalesFromBillLinks();
+    }
+
+    function unlinkBillFromOrder(billId, removeOrderId) {
+      const links = getBillOrderLinks();
+      const arr = (links[String(billId)] || []).filter(id => id !== removeOrderId);
+      if (arr.length) links[String(billId)] = arr;
+      else delete links[String(billId)];
+      setBillOrderLinks(links);
+      if (String(billId).startsWith('manual-') && !arr.length) {
+        const manual = getManualBills();
+        delete manual[billId];
+        setManualBills(manual);
+      }
+      refreshSalesFromBillLinks();
+    }
+
+    function renderSales(sales, bills) {
+      salesListAll = sales || [];
+      salesBillsByOrderId = (bills && bills.order_bills) || {};
+      const searchEl = document.getElementById('sales-search');
+      const sortEl = document.getElementById('sales-sort');
+      const periodEl = document.getElementById('sales-period');
+      const viewEl = document.getElementById('sales-view');
+      const billFilterEl = document.getElementById('sales-bill-filter');
+      const refreshSalesView = () => {
+        renderSalesTable(getSalesFilteredAndSorted());
+        renderDailySalesCharts();
+      };
+      if (searchEl) searchEl.oninput = refreshSalesView;
+      if (sortEl) sortEl.onchange = refreshSalesView;
+      if (periodEl) periodEl.onchange = refreshSalesView;
+      if (viewEl) viewEl.onchange = refreshSalesView;
+      if (billFilterEl) billFilterEl.onchange = refreshSalesView;
+      renderSalesTable(getSalesFilteredAndSorted());
+      if (!window._billLinkHandlersBound) {
+        window._billLinkHandlersBound = true;
+        document.body.addEventListener('click', (e) => {
+          const linkBtn = e.target.closest('[data-action="link-bill"]');
+          const unlinkEl = e.target.closest('.bill-unlink');
+          const addManualBtn = e.target.closest('[data-action="add-manual-bill"]');
+          if (linkBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            openLinkBillModal(linkBtn.dataset.billId, parseInt(linkBtn.dataset.orderId, 10));
+          } else if (unlinkEl) {
+            e.preventDefault();
+            e.stopPropagation();
+            const removeIds = unlinkEl.dataset.removeOrderIds;
+            if (removeIds) {
+              const billId = unlinkEl.dataset.billId;
+              const toRemove = removeIds.split(',').map(s => parseInt(s.trim(), 10));
+              const links = getBillOrderLinks();
+              const current = (links[String(billId)] || []).filter(oid => !toRemove.includes(Number(oid)));
+              if (current.length) links[String(billId)] = current;
+              else delete links[String(billId)];
+              setBillOrderLinks(links);
+              if (String(billId).startsWith('manual-') && !current.length) {
+                const manual = getManualBills();
+                delete manual[billId];
+                setManualBills(manual);
+              }
+              refreshSalesFromBillLinks();
+            } else {
+              unlinkBillFromOrder(unlinkEl.dataset.billId, parseInt(unlinkEl.dataset.removeOrderId, 10));
+            }
+          } else if (addManualBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            openManualBillModal(parseInt(addManualBtn.dataset.orderId, 10));
+          }
+        });
+        const linkBillCancel = document.getElementById('link-bill-cancel');
+        const linkBillSave = document.getElementById('link-bill-save');
+        if (linkBillCancel) linkBillCancel.onclick = closeLinkBillModal;
+        if (linkBillSave) linkBillSave.onclick = saveLinkBillModal;
+        document.getElementById('link-bill-modal')?.querySelector('.bill-link-modal-backdrop')?.addEventListener('click', closeLinkBillModal);
+        const manualBillCancel = document.getElementById('manual-bill-cancel');
+        const manualBillSave = document.getElementById('manual-bill-save');
+        if (manualBillCancel) manualBillCancel.onclick = closeManualBillModal;
+        if (manualBillSave) manualBillSave.onclick = saveManualBillModal;
+        document.getElementById('manual-bill-modal')?.querySelector('.bill-link-modal-backdrop')?.addEventListener('click', closeManualBillModal);
+      }
+    }
+
+    function enhanceTable(container, options) {
+      if (!container) return;
+      const opts = options || {};
+      const selectable = opts.selectable !== false;
+      const exportFilename = opts.exportFilename || 'export.csv';
+
+      let wrap = container;
+      let table = container;
+      if (container.tagName === 'TABLE') {
+        table = container;
+        wrap = table.closest('.table-wrap') || table.parentElement;
+      } else {
+        table = wrap.querySelector('table');
+      }
+      if (!wrap || !table || !table.querySelector('thead')) return;
+      const thead = table.querySelector('thead');
+      const tbody = table.querySelector('tbody');
+      if (!tbody) return;
+
+      function getDataRows() {
+        return Array.from(tbody.querySelectorAll('tr')).filter(tr => !tr.classList.contains('order-detail-row') && !tr.querySelector('td[colspan]'));
+      }
+
+      if (table.dataset.enhanced === '1') {
+        getDataRows().forEach(tr => {
+          if (!tr.querySelector('td.select-cell')) {
+            const td = document.createElement('td');
+            td.className = 'select-cell';
+            td.innerHTML = '<input type="checkbox" class="row-select" aria-label="Select row">';
+            tr.insertBefore(td, tr.firstChild);
+          }
+          let dataIdx = 0;
+          tr.querySelectorAll('td').forEach(td => {
+            if (!td.classList.contains('select-cell')) td.setAttribute('data-col-index', String(dataIdx++));
+          });
+        });
+        return;
+      }
+      table.dataset.enhanced = '1';
+      const headerRow = thead && thead.querySelector('tr');
+      if (!headerRow) return;
+      const headers = Array.from(headerRow.querySelectorAll('th'));
+      const colCount = headers.length;
+
+      function csvEscape(val) {
+        const s = String(val == null ? '' : val).trim();
+        if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+        return s;
+      }
+
+      function exportCsv() {
+        const dataRows = getDataRows();
+        const selected = selectable ? dataRows.filter(tr => tr.querySelector('input[type="checkbox"].row-select') && tr.querySelector('input[type="checkbox"].row-select').checked) : [];
+        const rowsToExport = selected.length > 0 ? selected : dataRows;
+        const visibleColIndices = [];
+        headers.forEach((th) => {
+          if (!th.classList.contains('select-cell') && th.style.display !== 'none' && th.getAttribute('data-col-index') != null) {
+            visibleColIndices.push(parseInt(th.getAttribute('data-col-index'), 10));
+          }
+        });
+        const headerLabels = visibleColIndices.map(ci => {
+          const th = headerRow.querySelector('th[data-col-index="' + ci + '"]');
+          return th ? (th.querySelector('.th-inner') || th).textContent.trim() : '';
+        });
+        const lines = [headerLabels.map(csvEscape).join(',')];
+        rowsToExport.forEach(tr => {
+          const vals = visibleColIndices.map(ci => {
+            const td = tr.querySelector('td[data-col-index="' + ci + '"]');
+            return td ? (td.textContent || '').trim() : '';
+          });
+          lines.push(vals.map(csvEscape).join(','));
+        });
+        const csv = lines.join('\r\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = exportFilename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      const colgroup = document.createElement('colgroup');
+      for (let i = 0; i < colCount; i++) {
+        const col = document.createElement('col');
+        col.style.minWidth = '40px';
+        colgroup.appendChild(col);
+      }
+      table.insertBefore(colgroup, table.firstChild);
+
+      const hiddenCols = new Set();
+      headers.forEach((th, i) => {
+        th.setAttribute('data-col-index', String(i));
+        const inner = document.createElement('span');
+        inner.className = 'th-inner';
+        inner.innerHTML = th.innerHTML;
+        th.innerHTML = '';
+        th.appendChild(inner);
+        const resizer = document.createElement('span');
+        resizer.className = 'resizer';
+        resizer.setAttribute('aria-label', 'Resize column');
+        th.appendChild(resizer);
+        const col = colgroup.children[i];
+        let startX = 0, startW = 0;
+        resizer.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          startX = e.pageX;
+          startW = col.offsetWidth || 80;
+          table.classList.add('col-resizing');
+          const onMove = (e2) => {
+            const w = Math.max(40, startW + (e2.pageX - startX));
+            col.style.width = w + 'px';
+            col.style.minWidth = w + 'px';
+          };
+          const onUp = () => {
+            table.classList.remove('col-resizing');
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+          };
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+        });
+      });
+
+      if (selectable) {
+        const thSelect = document.createElement('th');
+        thSelect.className = 'select-cell';
+        thSelect.innerHTML = '<input type="checkbox" id="table-select-all" aria-label="Select all">';
+        headerRow.insertBefore(thSelect, headerRow.firstChild);
+        const col0 = document.createElement('col');
+        col0.style.width = '2rem';
+        colgroup.insertBefore(col0, colgroup.firstChild);
+        getDataRows().forEach(tr => {
+          const td = document.createElement('td');
+          td.className = 'select-cell';
+          td.innerHTML = '<input type="checkbox" class="row-select" aria-label="Select row">';
+          tr.insertBefore(td, tr.firstChild);
+        });
+        tbody.querySelectorAll('td[colspan]').forEach(td => td.setAttribute('colspan', String(colCount + 1)));
+        headerRow.querySelector('#table-select-all').addEventListener('change', function() {
+          tbody.querySelectorAll('.row-select').forEach(cb => {
+            const tr = cb.closest('tr');
+            if (tr && !tr.querySelector('td[colspan]')) cb.checked = this.checked;
+          });
+        });
+      }
+
+      tbody.querySelectorAll('tr').forEach(tr => {
+        if (tr.querySelector('td[colspan]')) return;
+        let dataIdx = 0;
+        tr.querySelectorAll('td').forEach(td => {
+          if (!td.classList.contains('select-cell')) {
+            td.setAttribute('data-col-index', String(dataIdx++));
+          }
+        });
+      });
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'table-toolbar';
+      const columnsDrop = document.createElement('div');
+      columnsDrop.className = 'columns-drop';
+      columnsDrop.innerHTML = '<button type="button" class="btn">Columns ▼</button>';
+      const panel = document.createElement('div');
+      panel.className = 'panel';
+      headers.forEach((th, i) => {
+        if (th.classList.contains('select-cell')) return;
+        const label = document.createElement('label');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = true;
+        cb.dataset.colIndex = String(th.getAttribute('data-col-index'));
+        cb.addEventListener('change', () => {
+          if (cb.checked) {
+            hiddenCols.delete(i);
+            table.querySelectorAll('[data-col-index="' + cb.dataset.colIndex + '"]').forEach(el => { el.style.display = ''; });
+          } else {
+            hiddenCols.add(i);
+            table.querySelectorAll('[data-col-index="' + cb.dataset.colIndex + '"]').forEach(el => { el.style.display = 'none'; });
+          }
+        });
+        label.appendChild(cb);
+        label.appendChild(document.createTextNode((th.querySelector('.th-inner') || th).textContent.trim().slice(0, 24)));
+        panel.appendChild(label);
+      });
+      columnsDrop.appendChild(panel);
+      columnsDrop.querySelector('button').addEventListener('click', () => columnsDrop.classList.toggle('open'));
+      document.addEventListener('click', (e) => { if (!columnsDrop.contains(e.target)) columnsDrop.classList.remove('open'); });
+      toolbar.appendChild(columnsDrop);
+      if (selectable) {
+        const selectAllLabel = document.createElement('label');
+        selectAllLabel.className = 'btn';
+        selectAllLabel.style.cursor = 'pointer';
+        selectAllLabel.innerHTML = '<input type="checkbox" id="toolbar-select-all"> Select all';
+        toolbar.appendChild(selectAllLabel);
+        selectAllLabel.querySelector('#toolbar-select-all').addEventListener('change', function() {
+          const headerCb = headerRow.querySelector('#table-select-all');
+          if (headerCb) { headerCb.checked = this.checked; headerCb.dispatchEvent(new Event('change')); }
+        });
+      }
+      const exportBtn = document.createElement('button');
+      exportBtn.type = 'button';
+      exportBtn.className = 'btn';
+      exportBtn.textContent = 'Export CSV';
+      exportBtn.addEventListener('click', exportCsv);
+      toolbar.appendChild(exportBtn);
+      wrap.insertBefore(toolbar, wrap.firstChild);
     }
 
     function escapeHtml(s) {
@@ -975,6 +3379,326 @@
       div.textContent = s;
       return div.innerHTML;
     }
+
+    let crmData = null;
+    let crmLoaded = false;
+    let odooCustomerNames = new Set();
+
+    function loadCRM() {
+      if (crmLoaded) return;
+      crmLoaded = true;
+      const errEl = document.getElementById('crm-error');
+      const subtitleEl = document.getElementById('crm-subtitle');
+      if (subtitleEl) subtitleEl.textContent = 'Loading contacts…';
+      fetch('/api/crm')
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) throw new Error(data.error);
+          crmData = data;
+          populateCRMFilters(data);
+          renderCRM();
+          renderActivationRate();
+        })
+        .catch(err => {
+          if (errEl) { errEl.textContent = 'Failed to load CRM: ' + err.message; errEl.style.display = 'block'; }
+          if (subtitleEl) subtitleEl.textContent = '';
+          renderActivationRate();
+        });
+    }
+
+    function populateCRMFilters(data) {
+      const statusEl = document.getElementById('crm-status-filter');
+      if (statusEl && data.by_status) {
+        const statuses = Object.keys(data.by_status).sort();
+        statusEl.innerHTML = '<option value="all">All statuses</option>' + statuses.map(s => '<option value="' + escapeHtml(s) + '">' + escapeHtml(s) + '</option>').join('');
+      }
+      const searchEl = document.getElementById('crm-search');
+      const refresh = () => renderCRM();
+      if (searchEl) searchEl.oninput = refresh;
+      if (statusEl) statusEl.onchange = refresh;
+    }
+
+    function renderCRM() {
+      if (!crmData) return;
+      const cardsEl = document.getElementById('crm-summary-cards');
+      const subtitleEl = document.getElementById('crm-subtitle');
+      const wrapEl = document.getElementById('crm-table-wrap');
+      const contacts = crmData.contacts || [];
+      const total = contacts.length;
+      const q = (document.getElementById('crm-search')?.value || '').trim().toLowerCase();
+      const statusFilter = document.getElementById('crm-status-filter')?.value || 'all';
+      let list = contacts;
+      if (q) {
+        list = list.filter(c =>
+          (c.name || '').toLowerCase().includes(q) ||
+          (c.notes || '').toLowerCase().includes(q)
+        );
+      }
+      if (statusFilter !== 'all') list = list.filter(c => (c.statuses || []).includes(statusFilter));
+
+      if (cardsEl) {
+        const byStatus = crmData.by_status || {};
+        const statusCards = Object.entries(byStatus).sort((a, b) => b[1] - a[1]).map(([s, n]) =>
+          '<div class="metric-card"><div class="label">' + escapeHtml(s) + '</div><div class="value">' + n + '</div><div class="sub">contacts</div></div>'
+        ).join('');
+        cardsEl.innerHTML = '<div class="metric-card"><div class="label">Total contacts</div><div class="value">' + total + '</div></div>' + statusCards;
+      }
+      if (subtitleEl) {
+        subtitleEl.textContent = list.length === total
+          ? total + ' contacts'
+          : list.length + ' of ' + total + ' contacts';
+      }
+      if (!wrapEl) return;
+      if (!list.length) {
+        wrapEl.innerHTML = '<div class="customer-card"><div class="detail">No contacts match.</div></div>';
+        return;
+      }
+      const rows = list.map(c => {
+        const statusBadges = (c.statuses || []).map(s => '<span class="bill-note" style="margin-left: 0.25rem;">' + escapeHtml(s) + '</span>').join('');
+        return '<tr>' +
+          '<td>' + escapeHtml(c.name || '') + '</td>' +
+          '<td>' + statusBadges + '</td>' +
+          '<td style="white-space: pre-wrap;">' + escapeHtml(c.notes || '') + '</td>' +
+        '</tr>';
+      }).join('');
+      wrapEl.innerHTML = '<div class="table-wrap"><table class="customer-table"><thead><tr>' +
+        '<th>Name</th><th>Status</th><th>Notes</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+      const tableWrap = wrapEl.querySelector('.table-wrap');
+      if (tableWrap && typeof enhanceTable === 'function') enhanceTable(tableWrap, { exportFilename: 'crm-contacts.csv' });
+    }
+
+    function renderActivationRate() {
+      const cardsEl = document.getElementById('activation-rate-cards');
+      const noteEl = document.getElementById('activation-rate-note');
+      const detailEl = document.getElementById('activation-rate-detail');
+      if (!cardsEl) return;
+
+      if (!crmData) {
+        cardsEl.innerHTML = '<div class="metric-card"><div class="label">CRM unavailable</div><div class="sub">Could not load CRM data</div></div>';
+        if (noteEl) noteEl.textContent = '';
+        return;
+      }
+
+      const contacts = crmData.contacts || [];
+      const connected = contacts.filter(c => (c.statuses || []).some(s => s.toLowerCase() === 'connected'));
+      const connectedCount = connected.length;
+
+      const ordered = connected.filter(c => (c.statuses || []).some(s => s.toLowerCase() === 'ordered'));
+      const orderedCount = ordered.length;
+      const notOrderedCount = connectedCount - orderedCount;
+      const activationPct = connectedCount > 0 ? (orderedCount / connectedCount * 100) : 0;
+
+      cardsEl.innerHTML =
+        '<div class="metric-card">' +
+          '<div class="label">Connected</div>' +
+          '<div class="value">' + connectedCount + '</div>' +
+          '<div class="sub">CRM contacts with "Connected" status</div>' +
+        '</div>' +
+        '<div class="metric-card">' +
+          '<div class="label">Have ordered</div>' +
+          '<div class="value">' + orderedCount + '</div>' +
+          '<div class="sub">Connected contacts with "Ordered" status</div>' +
+        '</div>' +
+        '<div class="metric-card">' +
+          '<div class="label">Not yet ordered</div>' +
+          '<div class="value">' + notOrderedCount + '</div>' +
+          '<div class="sub">Connected but no orders yet</div>' +
+        '</div>' +
+        '<div class="metric-card">' +
+          '<div class="label">Activation rate</div>' +
+          '<div class="value">' + activationPct.toFixed(1) + '%</div>' +
+          '<div class="sub">Connected → Ordered</div>' +
+        '</div>';
+
+      if (noteEl) {
+        noteEl.textContent = 'Based on CRM statuses: "Connected" and "Ordered".';
+      }
+
+      if (detailEl && notOrderedCount > 0) {
+        const notOrdered = connected.filter(c => !(c.statuses || []).some(s => s.toLowerCase() === 'ordered'));
+        const rows = notOrdered.map(c =>
+          '<tr><td>' + escapeHtml(c.name || '') + '</td>' +
+          '<td>' + (c.statuses || []).map(s => '<span class="bill-note" style="margin-left:0.25rem;">' + escapeHtml(s) + '</span>').join('') + '</td></tr>'
+        ).join('');
+        detailEl.innerHTML =
+          '<details><summary style="cursor: pointer; font-size: 0.9rem; color: var(--accent);">Show connected contacts who haven\'t ordered (' + notOrderedCount + ')</summary>' +
+          '<div class="table-wrap" style="margin-top: 0.5rem;"><table class="customer-table"><thead><tr><th>Name</th><th>Status</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody></table></div></details>';
+        detailEl.style.display = 'block';
+      } else if (detailEl) {
+        detailEl.style.display = 'none';
+      }
+    }
+
+    function openOverviewChartModal(chartKey) {
+      const modal = document.getElementById('overview-chart-modal');
+      const titleEl = document.getElementById('overview-chart-modal-title');
+      const canvas = document.getElementById('overview-chart-modal-canvas');
+      if (!modal || !canvas || !overviewSeriesData) return;
+
+      const s = overviewSeriesData;
+      const months = s.months || [];
+      const freq = orderFrequencyData || {};
+      const daily = dailySalesData || {};
+      const dailyDays = daily.days || [];
+      const dailyCum = daily.cumulative || [];
+
+      const chartConfigs = {
+        cum_revenue: {
+          title: 'Total Lifetime Sales Over Time',
+          labels: dailyDays,
+          data: dailyCum,
+          color: 'rgb(59, 130, 246)',
+          fill: true,
+          isCurrency: true,
+        },
+        cum_customers: {
+          title: 'Cumulative Unique Customers by Month',
+          labels: months,
+          data: s.cum_customers || [],
+          color: 'rgb(34, 197, 94)',
+          fill: false,
+          isCurrency: false,
+        },
+        cum_users_2plus: {
+          title: 'Cumulative Users with 2+ Orders by Month',
+          labels: months,
+          data: s.cum_users_2plus || [],
+          color: 'rgb(168, 85, 247)',
+          fill: false,
+          isCurrency: false,
+        },
+        avg_days_between: {
+          title: 'Avg Days Between Orders (Repeat Customers) by Month',
+          labels: freq.trend_months || [],
+          data: (freq.trend_avg_days || []).map(v => v ?? null),
+          color: 'rgb(245, 158, 11)',
+          fill: false,
+          isCurrency: false,
+          suffix: ' days',
+          spanGaps: true,
+        },
+        cum_clv: {
+          title: 'Average Customer Lifetime Value by Month',
+          labels: months,
+          data: s.cum_clv || [],
+          color: 'rgb(6, 182, 212)',
+          fill: false,
+          isCurrency: true,
+        },
+        cum_orders: {
+          title: 'Cumulative Orders by Month',
+          labels: months,
+          data: s.cum_orders || [],
+          color: 'rgb(99, 102, 241)',
+          fill: true,
+          isCurrency: false,
+        },
+        monthly_aov: {
+          title: 'Average Order Value by Month',
+          labels: months,
+          data: s.monthly_aov || [],
+          color: 'rgb(236, 72, 153)',
+          fill: false,
+          isCurrency: true,
+        },
+        monthly_engraving_rate: {
+          title: 'Engraving Order Rate by Month',
+          labels: months,
+          data: s.monthly_engraving_rate || [],
+          color: 'rgb(234, 88, 12)',
+          fill: false,
+          isCurrency: false,
+          suffix: '%',
+        },
+      };
+
+      const cfg = chartConfigs[chartKey];
+      if (!cfg) return;
+
+      titleEl.textContent = cfg.title;
+      if (chartOverviewModal) chartOverviewModal.destroy();
+
+      const bgColor = cfg.color.replace('rgb(', 'rgba(').replace(')', ', 0.1)');
+      chartOverviewModal = new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: cfg.labels,
+          datasets: [{
+            label: cfg.title,
+            data: cfg.data,
+            borderColor: cfg.color,
+            backgroundColor: cfg.fill ? bgColor : 'transparent',
+            fill: cfg.fill,
+            tension: 0.3,
+            pointRadius: cfg.labels.length > 100 ? 0 : 3,
+            pointHoverRadius: 6,
+            pointHitRadius: 10,
+            borderWidth: 2,
+            spanGaps: cfg.spanGaps || false,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const v = ctx.raw;
+                  if (v == null) return 'N/A';
+                  if (cfg.isCurrency) return formatCurrency(v);
+                  if (cfg.suffix) return Number(v).toLocaleString() + cfg.suffix;
+                  return Number(v).toLocaleString();
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: {
+                color: '#8b9cb3',
+                maxTicksLimit: 14,
+                maxRotation: 45,
+              },
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: {
+                color: '#8b9cb3',
+                callback: function(v) {
+                  if (cfg.isCurrency) return '$' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v);
+                  if (cfg.suffix) return v + cfg.suffix;
+                  return v;
+                },
+              },
+            },
+          },
+        },
+      });
+
+      modal.style.display = 'flex';
+    }
+
+    function closeOverviewChartModal() {
+      const modal = document.getElementById('overview-chart-modal');
+      if (modal) modal.style.display = 'none';
+      if (chartOverviewModal) { chartOverviewModal.destroy(); chartOverviewModal = null; }
+    }
+
+    (function() {
+      const modal = document.getElementById('overview-chart-modal');
+      if (!modal) return;
+      modal.querySelector('.overview-chart-modal-backdrop')?.addEventListener('click', closeOverviewChartModal);
+      modal.querySelector('.overview-chart-modal-close')?.addEventListener('click', closeOverviewChartModal);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display !== 'none') closeOverviewChartModal();
+      });
+    })();
 
     function setupTabs() {
       const tabs = document.querySelectorAll('.tabs button');
@@ -985,8 +3709,52 @@
           panels.forEach(p => p.classList.remove('active'));
           tab.setAttribute('aria-selected', 'true');
           document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+          if (tab.id === 'tab-crm') loadCRM();
         });
       });
+    }
+
+    function setupSalesSeeGraphs() {
+      if (window._salesSeeGraphsSetup) return;
+      window._salesSeeGraphsSetup = true;
+      const btn = document.getElementById('sales-see-graphs');
+      const section = document.getElementById('sales-graphs-section');
+      if (!btn || !section) return;
+      btn.addEventListener('click', () => {
+        const isHidden = section.hasAttribute('hidden');
+        if (isHidden) {
+          section.removeAttribute('hidden');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.textContent = 'Hide graphs';
+          setTimeout(() => {
+            if (chartDailySales && chartDailySales.resize) chartDailySales.resize();
+            if (chartCumulativeSales && chartCumulativeSales.resize) chartCumulativeSales.resize();
+          }, 80);
+        } else {
+          section.setAttribute('hidden', '');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.textContent = 'See graphs';
+        }
+      });
+    }
+
+    function setupSalesChartToggles() {
+      if (window._salesChartTogglesSetup) return;
+      window._salesChartTogglesSetup = true;
+      const dailyToggle = document.getElementById('chart-daily-toggle');
+      const cumToggle = document.getElementById('chart-cumulative-toggle');
+      const dailyWrap = document.getElementById('chart-wrap-daily');
+      const cumWrap = document.getElementById('chart-wrap-cumulative');
+      function toggle(wrap, btn, chartRef) {
+        if (!wrap || !btn) return;
+        const collapsed = wrap.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', !collapsed);
+        if (!collapsed && chartRef && chartRef.resize) {
+          setTimeout(() => chartRef.resize(), 50);
+        }
+      }
+      if (dailyToggle && dailyWrap) dailyToggle.addEventListener('click', () => toggle(dailyWrap, dailyToggle, chartDailySales));
+      if (cumToggle && cumWrap) cumToggle.addEventListener('click', () => toggle(cumWrap, cumToggle, chartCumulativeSales));
     }
 
     function applyTheme(theme) {

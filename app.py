@@ -28,6 +28,16 @@ def api_metrics():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/api/crm")
+def api_crm():
+    try:
+        from notion_crm import fetch_crm_contacts
+        data = fetch_crm_contacts()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/api/version")
 def api_version():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
